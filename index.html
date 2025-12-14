@@ -1,1883 +1,1146 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>ParallelYou™ | How ParallelYou Works</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <meta
-      name="description"
-      content="See exactly how ParallelYou™ builds, calibrates, and deploys your EchoClone™ in a 6 week precision container, so you know what you are stepping into before you see pricing."
-    />
-    <meta
-      name="keywords"
-      content="ParallelYou, EchoClone, Authority Scale, AI clone for founders, Executive OS, founder clone, identity replication, anti burnout, founder system, authority engine"
-    />
-
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-
-    <style>
-      :root {
-        --bg: #000000;
-        --surface: rgba(20, 20, 20, 0.9);
-        --surface-soft: rgba(26, 26, 26, 0.65);
-        --border-subtle: rgba(255, 255, 255, 0.06);
-        --text-main: #e3e3e3;
-        --text-muted: #888888;
-        --text-soft: #999999;
-        --text-strong: #ffffff;
-        --accent-coral: #ff4757;
-        --accent-teal: #5dfdcb;
-        --shadow-soft: 0 18px 80px rgba(0, 0, 0, 0.65);
-        --radius-lg: 24px;
-        --radius-md: 16px;
-        --radius-pill: 999px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        letter-spacing: -0.01em;
-        color: var(--text-main);
-        background:
-          radial-gradient(circle at top, #111111 0, #000000 50%, #000000 100%),
-          var(--bg);
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        overflow-x: hidden;
-        overscroll-behavior-y: none;
-      }
-
-      body {
-        min-height: 100svh;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-      }
-
-      .page-shell {
-        min-height: 100svh;
-        display: flex;
-        flex-direction: column;
-        background:
-          radial-gradient(circle at top, rgba(93, 253, 203, 0.16), rgba(0, 0, 0, 1)),
-          radial-gradient(circle at bottom right, rgba(255, 71, 87, 0.12), rgba(0, 0, 0, 1));
-      }
-
-      .page-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      .narrow {
-        max-width: 880px;
-        margin: 0 auto;
-      }
-
-      .ultra-narrow {
-        max-width: 720px;
-        margin: 0 auto;
-      }
-
-      /* Header */
-
-      .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 30;
-        backdrop-filter: blur(14px);
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0.88),
-          rgba(0, 0, 0, 0.78),
-          transparent
-        );
-      }
-
-      .header-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 20px 12px;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .brand-lockup {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .brand-mark {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: #000000;
-        border: 1px solid rgba(255, 255, 255, 0.26);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
-
-      .brand-mark img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-
-      .brand-text {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-      }
-
-      .brand-title {
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        text-transform: none;
-        color: var(--text-strong);
-      }
-
-      .brand-sub {
-        font-size: 11px;
-        color: var(--text-soft);
-      }
-
-      .header-cta {
-        display: none;
-      }
-
-      @media (min-width: 768px) {
-        .header-cta {
-          display: inline-flex;
-        }
-      }
-
-      .btn-primary {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 11px 22px;
-        border-radius: var(--radius-pill);
-        border: none;
-        background: linear-gradient(135deg, #ff4757, #ff6b7a);
-        color: #000000;
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        cursor: pointer;
-        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.9);
-        transition:
-          transform 150ms ease-out,
-          box-shadow 150ms ease-out,
-          filter 150ms ease-out;
-        white-space: nowrap;
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow:
-          0 0 0 1px rgba(93, 253, 203, 0.6),
-          0 22px 60px rgba(0, 0, 0, 0.95);
-        filter: brightness(1.04);
-      }
-
-      .btn-outline {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 20px;
-        border-radius: var(--radius-pill);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: rgba(0, 0, 0, 0.6);
-        color: var(--text-main);
-        font-size: 13px;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        cursor: pointer;
-        transition:
-          background 150ms ease-out,
-          border-color 150ms ease-out,
-          transform 150ms ease-out;
-        white-space: nowrap;
-      }
-
-      .btn-outline:hover {
-        background: rgba(20, 20, 20, 0.95);
-        border-color: rgba(255, 255, 255, 0.3);
-        transform: translateY(-1px);
-      }
-
-      /* Sections */
-
-      .section {
-        padding: 70px 0;
-      }
-
-      @media (min-width: 768px) {
-        .section {
-          padding: 80px 0;
-        }
-      }
-
-      .section-header {
-        margin-bottom: 32px;
-        text-align: center;
-      }
-
-      .section-eyebrow {
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--accent-coral);
-        margin-bottom: 6px;
-      }
-
-      .section-title {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 32px;
-        line-height: 1.1;
-        letter-spacing: -0.045em;
-        color: var(--text-strong);
-        margin: 0;
-      }
-
-      @media (min-width: 768px) {
-        .section-title {
-          font-size: 40px;
-        }
-      }
-
-      .section-subtitle {
-        margin: 12px auto 0;
-        max-width: 560px;
-        font-size: 14px;
-        line-height: 1.6;
-        color: var(--text-muted);
-      }
-
-      .section-subtitle-strong {
-        color: var(--text-strong);
-      }
-
-      /* Hero */
-
-      .hero {
-        padding: 70px 0 40px;
-      }
-
-      @media (min-width: 768px) {
-        .hero {
-          padding: 80px 0 50px;
-        }
-      }
-
-      .hero-grid {
-        display: grid;
-        gap: 32px;
-      }
-
-      @media (min-width: 900px) {
-        .hero-grid {
-          grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
-          align-items: stretch;
-        }
-      }
-
-      .hero-left {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .hero-pill-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4px 12px;
-        border-radius: var(--radius-pill);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(0, 0, 0, 0.7);
-        font-size: 10px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-      }
-
-      .pill-highlight {
-        border-color: rgba(93, 253, 203, 0.7);
-        color: var(--accent-teal);
-      }
-
-      .pill-soft {
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      .hero-eyebrow-text {
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-      }
-
-      .hero-title {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 36px;
-        line-height: 1.05;
-        letter-spacing: -0.045em;
-        color: var(--text-strong);
-        margin: 14px 0 10px;
-      }
-
-      @media (min-width: 768px) {
-        .hero-title {
-          font-size: 52px;
-        }
-      }
-
-      .hero-subtitle {
-        font-size: 16px;
-        line-height: 1.6;
-        color: var(--text-main);
-        margin: 0 0 10px;
-      }
-
-      .hero-support {
-        font-size: 14px;
-        line-height: 1.7;
-        color: var(--text-muted);
-        max-width: 560px;
-        margin: 0;
-      }
-
-      .hero-support span {
-        color: var(--text-main);
-      }
-
-      .hero-actions {
-        margin-top: 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      @media (min-width: 640px) {
-        .hero-actions {
-          flex-direction: row;
-          align-items: center;
-        }
-      }
-
-      .hero-cta-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .hero-meta {
-        font-size: 11px;
-        color: var(--text-soft);
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        margin-top: 12px;
-      }
-
-      .hero-meta span {
-        display: inline;
-      }
-
-      .hero-meta-accent {
-        color: var(--accent-teal);
-        font-weight: 500;
-      }
-
-      .hero-right {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .hero-main-card {
-        position: relative;
-        overflow: hidden;
-        border-radius: var(--radius-lg);
-        border: 1px solid rgba(93, 253, 203, 0.55);
-        background:
-          radial-gradient(circle at top left, rgba(255, 71, 87, 0.18), rgba(0, 0, 0, 0.98));
-        box-shadow: var(--shadow-soft);
-        padding: 18px 18px 16px;
-      }
-
-      .hero-main-card::before {
-        content: "";
-        position: absolute;
-        inset: -40%;
-        background: radial-gradient(circle at top, rgba(93, 253, 203, 0.24), transparent 60%);
-        opacity: 0.6;
-        pointer-events: none;
-        mix-blend-mode: screen;
-      }
-
-      .hero-photo-card {
-        position: relative;
-        overflow: hidden;
-        border-radius: var(--radius-lg);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background:
-          radial-gradient(circle at top left, rgba(93, 253, 203, 0.18), rgba(0, 0, 0, 0.98));
-        box-shadow: var(--shadow-soft);
-        padding: 0;
-      }
-
-      .hero-photo-card img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-      }
-
-      .hero-main-card-title {
-        font-size: 13px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-        margin-bottom: 10px;
-      }
-
-      .hero-main-card-body {
-        color: var(--text-strong);
-        font-size: 13px;
-        color: var(--text-main);
-        line-height: 1.75;
-      }
-
-      .hero-tag-card {
-        border-radius: var(--radius-md);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background:
-          radial-gradient(circle at top left, rgba(255, 71, 87, 0.12), rgba(0, 0, 0, 0.96));
-        padding: 10px 14px;
-        font-size: 12px;
-        color: var(--text-soft);
-      }
-
-      .hero-tag-card strong {
-        color: var(--text-main);
-      }
-
-      /* 3 step process */
-
-      .process-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-      }
-
-      @media (min-width: 900px) {
-        .process-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-      }
-
-      .process-card {
-        border-radius: var(--radius-md);
-        border: 1px solid var(--border-subtle);
-        background:
-          radial-gradient(circle at top left, rgba(93, 253, 203, 0.08), rgba(0, 0, 0, 0.96));
-        padding: 18px 16px 16px;
-        box-shadow: var(--shadow-soft);
-      }
-
-      .process-label {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--accent-coral);
-        margin-bottom: 6px;
-      }
-
-      .process-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-strong);
-        margin-bottom: 6px;
-      }
-
-      .process-copy {
-        font-size: 13px;
-        color: var(--text-muted);
-        line-height: 1.7;
-        margin: 0 0 10px;
-      }
-
-      .process-role-label {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-        margin-bottom: 3px;
-      }
-
-      .process-role-text {
-        font-size: 13px;
-        color: var(--text-main);
-      }
-
-      /* Trio section */
-
-      .trio-shell {
-        border-radius: var(--radius-lg);
-        background:
-          radial-gradient(circle at top left, rgba(255, 71, 87, 0.12), rgba(0, 0, 0, 0.98));
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: var(--shadow-soft);
-        padding: 22px 18px 20px;
-      }
-
-      .trio-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-      }
-
-      @media (min-width: 900px) {
-        .trio-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-      }
-
-      .trio-card {
-        border-radius: var(--radius-md);
-        background: rgba(0, 0, 0, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 16px 14px 14px;
-      }
-
-      .trio-label {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--accent-coral);
-        margin-bottom: 5px;
-      }
-
-      .trio-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-strong);
-        margin-bottom: 6px;
-      }
-
-      .trio-copy {
-        font-size: 13px;
-        line-height: 1.7;
-        color: var(--text-muted);
-        margin: 0;
-      }
-
-      .trio-outcome {
-        margin-top: 8px;
-        font-size: 12px;
-        color: var(--text-main);
-      }
-
-      /* 6 week container */
-
-      .timeline-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-      }
-
-      @media (min-width: 900px) {
-        .timeline-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      .timeline-card {
-        border-radius: var(--radius-md);
-        border: 1px solid var(--border-subtle);
-        background:
-          linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(0, 0, 0, 0.98));
-        padding: 18px 16px 16px;
-        box-shadow: var(--shadow-soft);
-      }
-
-      .timeline-card--teal {
-        background:
-          radial-gradient(circle at top left, rgba(93, 253, 203, 0.16), rgba(0, 0, 0, 0.98));
-      }
-
-      .timeline-card--coral {
-        background:
-          radial-gradient(circle at top left, rgba(255, 71, 87, 0.16), rgba(0, 0, 0, 0.98));
-      }
-
-      .timeline-label-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 6px;
-      }
-
-      .timeline-weeks {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-      }
-
-      .timeline-tag {
-        font-size: 11px;
-        padding: 4px 10px;
-        border-radius: var(--radius-pill);
-        border: 1px solid rgba(255, 71, 87, 0.7);
-        background: rgba(0, 0, 0, 0.7);
-        color: var(--accent-coral);
-        white-space: nowrap;
-      }
-
-      .timeline-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-strong);
-        margin-bottom: 4px;
-      }
-
-      .timeline-copy {
-        font-size: 13px;
-        color: var(--text-muted);
-        line-height: 1.65;
-        margin: 0;
-      }
-
-      .timeline-list {
-        margin: 8px 0 0;
-        padding-left: 18px;
-      }
-
-      .timeline-list li {
-        font-size: 12px;
-        color: var(--text-main);
-        margin-bottom: 4px;
-      }
-
-      /* Before / after */
-
-      .ba-shell {
-        border-radius: var(--radius-lg);
-        background:
-          radial-gradient(circle at top left, rgba(93, 253, 203, 0.14), rgba(0, 0, 0, 0.98));
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: var(--shadow-soft);
-        padding: 22px 18px 20px;
-      }
-
-      .ba-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 20px;
-      }
-
-      @media (min-width: 900px) {
-        .ba-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      .ba-column-title {
-        font-size: 12px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-        margin-bottom: 8px;
-      }
-
-      .ba-column-title span {
-        color: var(--text-main);
-        font-weight: 600;
-      }
-
-      .ba-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 7px;
-      }
-
-      .ba-item {
-        font-size: 13px;
-        color: var(--text-muted);
-      }
-
-      .ba-item strong {
-        color: var(--text-main);
-      }
-
-      /* Avatars */
-
-      .avatar-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-      }
-
-      @media (min-width: 900px) {
-        .avatar-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-      }
-
-      .avatar-card {
-        border-radius: var(--radius-md);
-        border: 1px solid var(--border-subtle);
-        background:
-          linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(0, 0, 0, 0.98));
-        padding: 16px 14px 14px;
-        box-shadow: var(--shadow-soft);
-      }
-
-      .avatar-tag {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-        margin-bottom: 4px;
-      }
-
-      .avatar-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-strong);
-        margin-bottom: 6px;
-      }
-
-      .avatar-copy {
-        font-size: 13px;
-        color: var(--text-muted);
-        line-height: 1.7;
-      }
-
-      /* Final CTA */
-
-      .final-cta {
-        border-radius: var(--radius-lg);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background:
-          radial-gradient(circle at top left, rgba(255, 71, 87, 0.18), rgba(26, 26, 26, 0.96)),
-          linear-gradient(135deg, rgba(26, 26, 26, 0.96), rgba(0, 0, 0, 0.98));
-        box-shadow: var(--shadow-soft);
-        padding: 20px 18px 18px;
-      }
-
-      @media (min-width: 900px) {
-        .final-cta {
-          padding: 22px 20px 18px;
-        }
-      }
-
-      .final-cta-inner {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        align-items: flex-start;
-      }
-
-      @media (min-width: 900px) {
-        .final-cta-inner {
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-        }
-      }
-
-      .final-cta-text {
-        max-width: 520px;
-      }
-
-      .final-cta-eyebrow {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-        margin-bottom: 4px;
-      }
-
-      .final-cta-main {
-        font-size: 16px;
-        color: var(--text-strong);
-        margin: 0 0 6px;
-      }
-
-      .final-cta-sub {
-        font-size: 14px;
-        color: var(--text-muted);
-        margin: 0;
-        line-height: 1.6;
-      }
-
-      .final-cta-meta {
-        margin-top: 8px;
-        font-size: 11px;
-        color: var(--text-soft);
-      }
-
-      /* Footer */
-
-      .site-footer {
-        margin-top: 40px;
-        padding: 24px 0 32px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        font-size: 11px;
-        color: var(--text-soft);
-      }
-
-      .footer-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      .footer-top {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 14px;
-      }
-
-      @media (min-width: 768px) {
-        .footer-top {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: flex-start;
-        }
-      }
-
-      .footer-legal-line {
-        max-width: 680px;
-      }
-
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .footer-links a {
-        text-decoration: underline;
-        text-decoration-color: rgba(255, 255, 255, 0.4);
-        text-underline-offset: 3px;
-        cursor: pointer;
-      }
-
-      .footer-bottom {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        margin-top: 8px;
-      }
-
-      @media (min-width: 768px) {
-        .footer-bottom {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-        }
-      }
-
-      .footer-contact a {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      /* Exit intent popup (desktop) */
-
-      .exit-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.86);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 18px;
-        z-index: 40;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 140ms ease-out;
-      }
-
-      .exit-overlay.visible {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .exit-modal {
-        width: 100%;
-        max-width: 440px;
-        border-radius: var(--radius-lg);
-        background:
-          radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 45%),
-          rgba(0, 0, 0, 0.98);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.98);
-        padding: 20px 20px 18px;
-      }
-
-      .exit-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-
-      .exit-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-strong);
-      }
-
-      .exit-close {
-        border: none;
-        background: transparent;
-        color: var(--text-soft);
-        cursor: pointer;
-        font-size: 16px;
-        padding: 2px;
-      }
-
-      .exit-body {
-        font-size: 13px;
-        color: var(--text-muted);
-        margin-bottom: 10px;
-        line-height: 1.7;
-      }
-
-      .exit-body p {
-        margin: 0 0 8px;
-      }
-
-      .exit-body strong {
-        color: var(--text-main);
-      }
-
-      .exit-meta {
-        font-size: 11px;
-        color: var(--text-soft);
-        margin-top: 6px;
-      }
-
-      .exit-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-top: 8px;
-      }
-
-      @media (min-width: 480px) {
-        .exit-actions {
-          flex-direction: row;
-          align-items: center;
-        }
-      }
-
-      .exit-secondary {
-        font-size: 11px;
-        color: var(--text-soft);
-      }
-
-      @media (max-width: 767px) {
-        .exit-overlay {
-          display: none;
-        }
-      }
-
-      /* Legal modal */
-
-      .legal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 18px;
-        z-index: 50;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 140ms ease-out;
-      }
-
-      .legal-overlay.visible {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .legal-modal {
-        width: 100%;
-        max-width: 720px;
-        max-height: min(620px, 90vh);
-        border-radius: var(--radius-md);
-        background: rgba(0, 0, 0, 0.98);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.98);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
-
-      .legal-header {
-        padding: 10px 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .legal-title {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-strong);
-      }
-
-      .legal-close {
-        border: none;
-        background: transparent;
-        color: var(--text-soft);
-        cursor: pointer;
-        font-size: 16px;
-        padding: 2px;
-      }
-
-      .legal-body {
-        padding: 10px 16px 12px;
-        overflow-y: auto;
-      }
-
-      .legal-body h4 {
-        margin: 6px 0 4px;
-        font-size: 12px;
-        color: var(--text-main);
-      }
-
-      .legal-body p,
-      .legal-body li {
-        font-size: 11px;
-        color: var(--text-soft);
-        line-height: 1.6;
-      }
-
-      .legal-body ul {
-        padding-left: 16px;
-        margin: 4px 0 6px;
-      }
-
-      .legal-footnote {
-        font-size: 11px;
-        color: var(--text-soft);
-        margin-top: 8px;
-      }
-
-      /* Mobile sticky CTA */
-      .mobile-sticky-cta {
-        position: fixed;
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-        z-index: 45;
-        padding: 8px;
-        border-radius: var(--radius-pill);
-        background: rgba(0, 0, 0, 0.96);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.95);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transform: translateZ(0);
-        will-change: transform;
-        -webkit-transform: translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-      }
-
-      .mobile-sticky-cta-label {
-        position: absolute;
-        top: -14px;
-        left: 18px;
-        font-size: 10px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-soft);
-      }
-
-      .mobile-sticky-cta .btn-primary {
-        width: 100%;
-        justify-content: center;
-        padding-inline: 14px;
-      }
-
-      @media (min-width: 768px) {
-        .mobile-sticky-cta {
-          display: none;
-        }
-      }
-
-      /* Section inline CTAs */
-      .section-cta-row {
-        margin-top: 24px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .section-cta-row-center {
-        justify-content: center;
-      }
-
-      @media (max-width: 767px) {
-        main {
-          padding-bottom: 110px;
-        }
-      }
-
-      /* iOS Safari: reduce “rubber band” / fixed-bar jitter */
-      @supports (-webkit-touch-callout: none) {
-        .mobile-sticky-cta {
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      
-    </style>
-  </head>
-
-  <body>
-    <div class="page-shell">
-      <!-- HEADER -->
-      <header class="site-header">
-        <div class="header-inner">
-          <div class="brand-lockup">
-            <div class="brand-mark">
-              <img src="https://i.imgur.com/RBzYI2h.png" alt="ParallelYou logo" />
-            </div>
-            <div class="brand-text">
-              <div class="brand-title">ParallelYou™</div>
-              <div class="brand-sub">EchoClone™ for founders who refuse to burn out</div>
-            </div>
-          </div>
-
-          <a
-            href="https://dixie-py.github.io/parallelyou-popopt/"
-            class="header-cta btn-outline"
-          >
-            View full program details
-          </a>
-        </div>
-      </header>
-
-      <main>
-        <!-- HERO -->
-        <section class="hero">
-          <div class="page-container narrow">
-            <div class="hero-grid">
-              <div class="hero-left">
-                <div class="hero-pill-row">
-                  <div class="pill pill-highlight">Step 2 of 3</div>
-                  <div class="pill pill-soft">How ParallelYou works</div>
-                </div>
-
-                <p class="hero-eyebrow-text">Six week identity replication container.</p>
-
-                <h1 class="hero-title">
-                  A 6 week precision container that builds your working EchoClone™
-                </h1>
-
-                <p class="hero-subtitle">
-                  ParallelYou™ turns the way you already think and decide into infrastructure that
-                  can support you every week.
-                </p>
-
-                <p class="hero-support">
-                  Over 6 weeks we map how you think, train your EchoClone™, and plug it into the work that already produces results, so your authority scales without demanding more of you.
-                </p>
-
-                <div class="hero-actions">
-                  <div class="hero-cta-row">
-                    <a
-                      href="https://dixie-py.github.io/parallelyou-popopt/"
-                      class="btn-primary"
-                    >
-                      View full program details and pricing
-                    </a>
-                    <button class="btn-outline" type="button" data-scroll-target="#container">
-                      See the 6 week container
-                    </button>
-                  </div>
-                </div>
-                <div class="hero-meta">
-                  <span class="hero-meta-accent">✓ No credit card required on this step.</span>
-                  <span>≈ 60 seconds to complete.</span>
-                </div>
-              </div>
-
-              <div class="hero-right">
-                <div class="hero-photo-card">
-                  <img src="https://i.imgur.com/Im3QBfL.jpg" alt="ParallelYou founder and EchoClone standing together" />
-                </div>
-                <div class="hero-main-card">
-                  <div class="hero-main-card-title">Holiday founding offer · through December 31</div>
-                  <div class="hero-main-card-body">
-                    Founding holiday pricing is active for this cohort until December 31. On the next screen you will see the full breakdown for Core and VIP and choose the structure that fits best.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SECTION 1: 3 STEP PROCESS -->
-        <section class="section">
-          <div class="page-container narrow">
-            <div class="section-header">
-              <div class="section-eyebrow">High level view</div>
-              <h2 class="section-title">
-                Three focused phases. Then a new normal on the other side.
-              </h2>
-              <p class="section-subtitle section-subtitle-strong">
-                ParallelYou™ moves from Decode to Build to Deploy so your EchoClone™ becomes a trusted extension of your thinking, not another tool you forget.
-              </p>
-            </div>
-
-            <div class="process-grid">
-              <article class="process-card">
-                <div class="process-label">01 Decode</div>
-                <div class="process-title">Map how you already think and decide</div>
-                <p class="process-copy">
-                  We capture your tone, patterns, reasoning and internal logic so your clarity
-                  becomes something we can model with precision.
-                </p>
-                <div class="process-role-label">Your role</div>
-                <div class="process-role-text">
-                  We guide you through a focused intake so a small amount of your best work gives us everything we need to see how you really think.
-                </div>
-              </article>
-
-              <article class="process-card">
-                <div class="process-label">02 Build</div>
-                <div class="process-title">Train and calibrate your EchoClone™</div>
-                <p class="process-copy">
-                  We train your EchoClone™ to write, respond and support decisions in a way that
-                  feels like you, not a template or generic content tool.
-                </p>
-                <div class="process-role-label">Your role</div>
-                <div class="process-role-text">
-                  You react to real outputs in your own words while we handle the adjustments until responses feel natural and trusted.
-                </div>
-              </article>
-
-              <article class="process-card">
-                <div class="process-label">03 Deploy</div>
-                <div class="process-title">
-                  Plug it into the parts of your business that need you most
-                </div>
-                <p class="process-copy">
-                  We deploy your EchoClone™ across content, client delivery and internal operations
-                  so it supports you in the work you do every week.
-                </p>
-                <div class="process-role-label">Your role</div>
-                <div class="process-role-text">
-                  You begin using your EchoClone™ inside your existing week so it becomes part of how you work, not another task.
-                </div>
-              </article>
-            </div>
-          <div class="section-cta-row">
-            <a
-              href="https://dixie-py.github.io/parallelyou-popopt/"
-              class="btn-primary"
-            >
-              View full program details and pricing
-            </a>
-            <button class="btn-outline" type="button" data-scroll-target="#container">
-              See the 6 week container
-            </button>
-          </div>
-          </div>
-        </section>
-
-        <!-- SECTION 2: TRIO - WHAT YOU GIVE / WE BUILD / YOU LEAVE WITH -->
-        <section class="section">
-          <div class="page-container narrow">
-            <div class="section-header">
-              <div class="section-eyebrow">What actually happens inside</div>
-              <h2 class="section-title">
-                What goes in, what we build<br />and what stays with you
-              </h2>
-              <p class="section-subtitle">
-                ParallelYou™ is not another course. It is authority infrastructure you keep long after the container ends.
-              </p>
-            </div>
-
-            <div class="trio-shell">
-              <div class="trio-grid">
-                <article class="trio-card">
-                  <div class="trio-label">Starting point</div>
-                  <div class="trio-title">We begin with what already works</div>
-                  <p class="trio-copy">
-                    We start with what already exists. A handful of your best calls, content and notes are enough for us to see how you think and what your work really does.
-                  </p>
-                  <p class="trio-outcome">
-                    Outcome: your clarity becomes visible and usable without you needing to create anything from scratch.
-                  </p>
-                </article>
-
-                <article class="trio-card">
-                  <div class="trio-label">Build phase</div>
-                  <div class="trio-title">Your EchoClone™ and authority engine</div>
-                  <p class="trio-copy">
-                    Through Identity Extraction & Clone Mapping™, Authority Engine™ training and
-                    Strategic Execution Blueprint™, we build the system that writes, responds and
-                    supports decisions in your voice.
-                  </p>
-                  <p class="trio-outcome">
-                    Outcome: no more blank pages, no more burnout. Your reasoning patterns, tone and
-                    standards are encoded.
-                  </p>
-                </article>
-
-                <article class="trio-card">
-                  <div class="trio-label">What stays with you</div>
-                  <div class="trio-title">Infrastructure that keeps working for you</div>
-                  <p class="trio-copy">
-                    A live EchoClone™ that thinks like you, a visibility blueprint your team can
-                    follow and operational frameworks other people can run without you.
-                  </p>
-                  <p class="trio-outcome">
-                    Outcome: you are no longer the bottleneck. You become the blueprint everything
-                    else runs on.
-                  </p>
-                </article>
-              </div>
-            </div>
-            <div class="section-cta-row section-cta-row-center">
-              <a
-                href="https://dixie-py.github.io/parallelyou-popopt/"
-                class="btn-primary"
-              >
-                See how your EchoClone is built
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- SECTION 3: 6 WEEK CONTAINER -->
-        <section class="section" id="container">
-          <div class="page-container narrow">
-            <div class="section-header">
-              <div class="section-eyebrow">The 6 week container</div>
-              <h2 class="section-title">
-                A defined timeline, clear checkpoints and a finish line
-              </h2>
-              <p class="section-subtitle">
-                A 6 week precision container with specific outcomes for each block of time.
-              </p>
-              
-            </div>
-
-            <div class="timeline-grid">
-              <article class="timeline-card timeline-card--teal">
-                <div class="timeline-label-row">
-                  <div class="timeline-weeks">Weeks 1 - 2</div>
-                  <div class="timeline-tag">Decode and intake</div>
-                </div>
-                <div class="timeline-title">Identity extraction and signal mapping</div>
-                <p class="timeline-copy">
-                  We collect and map your existing authority, patterns and decision logic so the
-                  build phase has real data, not guesses.
-                </p>
-                <ul class="timeline-list">
-                  <li>Collect assets, calls, posts, emails and key documents</li>
-                  <li>Targeted prompts that surface how you actually think</li>
-                  <li>Initial Identity Extraction & Clone Mapping™ pass</li>
-                  <li>Clear view of where your EchoClone™ will support you first</li>
-                </ul>
-              </article>
-
-              <article class="timeline-card timeline-card--coral">
-                <div class="timeline-label-row">
-                  <div class="timeline-weeks">Weeks 3 - 4</div>
-                  <div class="timeline-tag">Build and calibration</div>
-                </div>
-                <div class="timeline-title">Training your EchoClone™ on real work</div>
-                <p class="timeline-copy">
-                  Your EchoClone™ is trained on your material and stress tested against real
-                  scenarios in your business.
-                </p>
-                <ul class="timeline-list">
-                  <li>Authority Engine™ training on your real conversations</li>
-                  <li>Drafts for content, replies and internal decisions</li>
-                  <li>Iterative calibration until responses feel like you</li>
-                  <li>Clarity on where your EchoClone™ is strongest</li>
-                </ul>
-              </article>
-
-              <article class="timeline-card timeline-card--teal">
-                <div class="timeline-label-row">
-                  <div class="timeline-weeks">Weeks 5 - 6</div>
-                  <div class="timeline-tag">Deployment</div>
-                </div>
-                <div class="timeline-title">Plugging your EchoClone™ into your week</div>
-                <p class="timeline-copy">
-                  We move from lab to live use, integrating your EchoClone™ into the places that
-                  move revenue, authority and relief.
-                </p>
-                <ul class="timeline-list">
-                  <li>Strategic Execution Blueprint™ finalized for 90 days</li>
-                  <li>Deployment into content, client delivery and operations</li>
-                  <li>Team support so others can use the system with you</li>
-                  <li>Precision adjustments to keep everything in your voice</li>
-                </ul>
-              </article>
-
-              <article class="timeline-card timeline-card--coral">
-                <div class="timeline-label-row">
-                  <div class="timeline-weeks">After week 6</div>
-                  <div class="timeline-tag">The new normal</div>
-                </div>
-                <div class="timeline-title">You plus your EchoClone™ on a normal Tuesday</div>
-                <p class="timeline-copy">
-                  You wake up and your EchoClone™ has already drafted your newsletter, answered
-                  client questions and prepared your LinkedIn post.
-                </p>
-                <ul class="timeline-list">
-                  <li>You review and refine in minutes instead of hours</li>
-                  <li>Your team has what they need without waiting on you</li>
-                  <li>Your pipeline is moving while you protect your energy</li>
-                  <li>You have space to think instead of chasing tasks</li>
-                </ul>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- SECTION 4: BEFORE / AFTER WEEK -->
-        <section class="section">
-          <div class="page-container narrow">
-            <div class="section-header">
-              <div class="section-eyebrow">Your actual week</div>
-              <h2 class="section-title">
-                One week before ParallelYou™. One week after.
-              </h2>
-              <p class="section-subtitle">Same calendar. Different load on your brain.</p>
-            </div>
-
-            <div class="ba-shell">
-              <div class="ba-grid">
-                <div>
-                  <div class="ba-column-title"><span>Before</span> ParallelYou™</div>
-                  <ul class="ba-list">
-                    <li class="ba-item">
-                      <strong>Content</strong> lives in your head and scattered drafts.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Decisions</strong> bottleneck at your inbox and DMs.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Team questions</strong> pile up until you have time to answer.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Client work</strong> takes priority over your own visibility.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Thinking time</strong> happens late at night, if at all.
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <div class="ba-column-title"><span>After</span> ParallelYou™</div>
-                  <ul class="ba-list">
-                    <li class="ba-item">
-                      <strong>Content drafts</strong> are generated by your EchoClone™ in your
-                      voice.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Decisions</strong> move faster because your reasoning patterns are
-                      mapped.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Team questions</strong> are routed through a system that reflects your
-                      standards.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Client delivery and visibility</strong> both carry your authority
-                      without doubling your hours.
-                    </li>
-                    <li class="ba-item">
-                      <strong>Thinking time</strong> returns because your systems carry more of the
-                      weight.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SECTION 5: WHO THE COHORT IS FOR -->
-        <section class="section">
-          <div class="page-container narrow">
-            <div class="section-header">
-              <div class="section-eyebrow">Who this is built for</div>
-              <h2 class="section-title">
-                Three types of leaders. One shared constraint.
-              </h2>
-              <p class="section-subtitle">
-                Built for leaders whose demand has outgrown what they can keep giving.
-              </p>
-            </div>
-
-            <div class="avatar-grid">
-              <article class="avatar-card">
-                <div class="avatar-title">Consultants and advisors</div>
-                <p class="avatar-copy">
-                  Your calendar is already full of clients and conversations. You know you could serve more people without diluting depth if your best thinking was encoded once and reused everywhere.
-                </p>
-              </article>
-
-              <article class="avatar-card">
-                <div class="avatar-title">Founders and operators</div>
-                <p class="avatar-copy">
-                  Every campaign, document and decision seems to pause until you weigh in. You want a business that runs on your standards and decision logic without requiring your presence in every thread.
-                </p>
-              </article>
-
-              <article class="avatar-card">
-                <div class="avatar-title">Creators and educators</div>
-                <p class="avatar-copy">
-                  Your work changes people, yet visibility is inconsistent because inspiration does not run on a schedule. You want reach and authority that compound even when you are offline.
-                </p>
-              </article>
-            </div>
-            <div class="section-cta-row section-cta-row-center">
-              <a
-                href="https://dixie-py.github.io/parallelyou-popopt/"
-                class="btn-primary"
-              >
-                See the full program and pricing
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- FINAL CTA -->
-        <section class="section">
-          <div class="page-container narrow">
-            <div class="final-cta">
-              <div class="final-cta-inner">
-                <div class="final-cta-text">
-                  <div class="final-cta-eyebrow">Your next step</div>
-                  <h2 class="final-cta-main">
-                    See the complete program, pricing and 6 week implementation timeline.
-                  </h2>
-                  <p class="final-cta-sub">
-                    On the next screen you will confirm your fit, see the full breakdown for Core and VIP, and choose the structure that best matches where you are headed.
-                  </p>
-                  <p class="final-cta-meta">
-                    Holiday founding pricing for this cohort is active through December 31.
-                  </p>
-                  </div>
-
-                <a
-                  href="https://dixie-py.github.io/parallelyou-popopt/"
-                  class="btn-primary"
-                >
-                  Access full program and pricing
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="site-footer">
-          <div class="footer-inner">
-            <div class="footer-top">
-              <div class="footer-legal-line">
-                By continuing, you confirm that you are at least 18 years old and that you have read,
-                understood and agree to be bound by our Terms of Service, Privacy Policy, Cookie
-                Policy, Disclaimer, Refund Policy and DMCA Notice, which together form the Universal
-                Legal Suite for Dixie Briseno and all related brands.
-              </div>
-              <div class="footer-links">
-                <a data-legal="terms">Terms of Service</a>
-                <a data-legal="privacy">Privacy Policy</a>
-                <a data-legal="cookies">Cookie Policy</a>
-                <a data-legal="disclaimer">Disclaimer</a>
-                <a data-legal="refund">Refund Policy</a>
-                <a data-legal="dmca">DMCA Notice</a>
-              </div>
-            </div>
-
-            <div class="footer-bottom">
-              <div>
-                © 2025 Dixie Briseno. All Rights Reserved. ParallelYou™ | Authority Scale™ |
-                EchoClone™ | SelfOS™
-              </div>
-              <div class="footer-contact">
-                Contact:
-                <a href="mailto:weare@authorityscale.com"
-                  >weare@authorityscale.com</a
-                >
-              </div>
-            </div>
-          </div>
-        </footer>
-      </main>
-    </div>
-
-    <!-- MOBILE STICKY CTA -->
-    <div class="mobile-sticky-cta">
-      <span class="mobile-sticky-cta-label">Step 2 of 3</span>
-      <a
-        href="https://dixie-py.github.io/parallelyou-popopt/"
-        class="btn-primary"
-      >
-        Access full program and pricing
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ParallelYou™ | Access</title>
+  <meta name="description" content="ParallelYou™ access gate." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Favicon (ParallelYou) -->
+  <link rel="icon" type="image/png" href="https://i.imgur.com/EY0fRNK.png" />
+  <link rel="apple-touch-icon" href="https://i.imgur.com/EY0fRNK.png" />
+
+  <!--
+    Integration Notes
+    - This file is intentionally a standalone, pop-up style gate page (no header/footer), per your funnel constraint.
+    - Data capture:
+      1) Set SUBMIT_ENDPOINT to your backend URL (Google Apps Script, Make.com webhook, Zapier Catch Hook, Supabase Edge Function, etc).
+      2) The payload is posted as JSON.
+      3) If SUBMIT_ENDPOINT is blank, it logs to console only.
+    - Redirect:
+      - Set NEXT_URL when you have the next page link.
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      /* Replace these with your JSON tokens when provided */
+      --bg0:#05070c;
+      --bg1:#070a12;
+
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.085);
+      --border: rgba(255,255,255,.12);
+      --border2: rgba(255,255,255,.18);
+
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --soft: rgba(255,255,255,.54);
+
+      --coral:#ff4757;
+      --teal:#5dfdcb;
+
+      --r-lg: 26px;
+      --r-md: 18px;
+      --r-sm: 14px;
+
+      --shadow: 0 30px 80px rgba(0,0,0,.62);
+      --shadow2: 0 18px 52px rgba(0,0,0,.45);
+
+      --ring: 0 0 0 3px rgba(255,71,87,.22);
+
+      --maxw: 780px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 650px at 20% 10%, rgba(93,253,203,.10), transparent 60%),
+        radial-gradient(900px 650px at 78% 18%, rgba(255,71,87,.12), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      overflow:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Full-screen non-dismissable gate */
+    .gate{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .scrim{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.70);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      /* Prevent touch scroll on the backdrop only */
+      touch-action: none;
+    }
+
+    /* Mirror the exact top-right pill label and placement from Page 2 */
+    .top-right{
+      position:absolute;
+      top:18px;
+      right:18px;
+      z-index:3;
+      pointer-events:none;
+    }
+
+    .top-pill{
+      pointer-events:auto;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.88);
+      text-decoration:none;
+      font-weight:650;
+      font-size:14px;
+      letter-spacing:.1px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .top-pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.085);
+    }
+    .top-pill:focus-visible{
+      outline:none;
+      box-shadow: var(--ring), 0 14px 34px rgba(0,0,0,.35);
+    }
+    .pill-dot{
+      width:9px;height:9px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), rgba(255,71,87,.95));
+      box-shadow: 0 0 0 3px rgba(255,71,87,.14);
+      flex:0 0 auto;
+    }
+
+    .modal{
+      position:relative;
+      z-index:2;
+      width: min(var(--maxw), 100%);
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(1100px 720px at 12% 0%, rgba(93,253,203,.12), transparent 55%),
+        radial-gradient(1000px 700px at 92% 10%, rgba(255,71,87,.10), transparent 60%),
+        rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      max-height: calc(100vh - 36px);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .inner{
+      padding: clamp(18px, 3.2vw, 32px);
+      flex: 1 1 auto;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    .title{
+      margin:0;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(28px, 3.2vw, 40px);
+      letter-spacing: -0.4px;
+      line-height: 1.02;
+    }
+
+    .subtitle{
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 56ch;
+      font-size: 15.5px;
+      line-height: 1.5;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin: 18px 0 18px;
+    }
+
+    .steps{
+      position:relative;
+      min-height: 0;
+    }
+
+    /*
+      Important: steps are NOT absolutely positioned so the modal can scroll.
+      We still keep the transition premium via opacity + transform.
+    */
+    .step{
+      display:none;
+      opacity:0;
+      transform: translateY(10px);
+    }
+    .step.active{
+      display:block;
+      opacity:1;
+      transform: translateY(0);
+      animation: pyFadeUp .22s ease both;
+    }
+
+    @keyframes pyFadeUp{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .card{
+      width:100%;
+      text-align:left;
+      cursor:pointer;
+      display:flex;
+      gap: 14px;
+      padding: 16px 16px;
+      border-radius: var(--r-md);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 18px 44px rgba(0,0,0,.22);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+      /* Force consistent text color inside <button> across browsers */
+      color: var(--text);
+      transform: translateZ(0);
+    }
+    .card:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 22px 55px rgba(0,0,0,.26);
+    }
+    .card:focus-visible{
+      outline:none;
+      box-shadow: var(--ring), 0 22px 55px rgba(0,0,0,.26);
+    }
+
+    .mark{
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.18);
+      margin-top: 2px;
+      flex: 0 0 auto;
+      position:relative;
+    }
+    .mark::after{
+      content:"";
+      position:absolute;
+      inset: 4px;
+      border-radius: 999px;
+      opacity:0;
+      transform: scale(.85);
+      transition: opacity .14s ease, transform .14s ease;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), rgba(255,71,87,.95));
+    }
+
+    .card h3{
+      margin:0;
+      font-weight: 740;
+      letter-spacing: -0.15px;
+      font-size: 16px;
+      line-height: 1.22;
+      color: rgba(255,255,255,.92);
+    }
+    .card p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14.25px;
+      line-height: 1.45;
+    }
+
+    .card.selected{
+      border-color: rgba(255,71,87,.60);
+      background:
+        radial-gradient(700px 260px at 18% 0%, rgba(255,71,87,.14), transparent 62%),
+        rgba(255,255,255,.05);
+      box-shadow:
+        inset 0 0 0 2px rgba(255,71,87,.18),
+        0 0 0 4px rgba(255,71,87,.10),
+        0 22px 55px rgba(0,0,0,.30);
+    }
+    .card.selected h3{ color: rgba(255,255,255,.96); }
+
+    .card.selected .mark::after{
+      opacity:1;
+      transform: scale(1);
+    }
+
+    .actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      margin-top: 18px;
+    }
+
+    /* Sticky CTA row (Step 2) keeps momentum visible at all times */
+    .actions.actions-sticky{
+      position: sticky;
+      bottom: 0;
+      margin-top: 16px;
+      padding-top: 12px;
+      padding-bottom: 2px;
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      background: linear-gradient(180deg, rgba(5,7,12,0), rgba(5,7,12,.72) 22%, rgba(5,7,12,.88));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      font-size: 14px;
+      user-select:none;
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+      transition: transform .16s ease, filter .16s ease, opacity .16s ease;
+    }
+
+    /* premium sheen + depth, matches Page 1/2 energy without noise */
+    .btn::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: inherit;
+      pointer-events:none;
+      opacity: 0;
+      transform: translateX(-10%) translateY(-6%);
+      transition: opacity .18s ease, transform .28s ease;
+      background: radial-gradient(220px 90px at 20% 10%, rgba(255,255,255,.32), rgba(255,255,255,0) 60%);
+      mix-blend-mode: screen;
+    }
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: inherit;
+      pointer-events:none;
+      opacity: 1;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 45%);
+    }
+
+    .btn:hover::before{ opacity: .85; transform: translateX(0) translateY(0); }
+    .btn:active{ transform: translateY(0); filter: brightness(.99); }
+
+    .btn.ghost{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.86);
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+      padding: 12px 14px;
+    }
+    .btn.ghost:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.085);
+      filter: brightness(1.02);
+    }
+    .btn.ghost:active{ transform: translateY(0); }
+
+    .btn.primary{
+
+      color: rgba(255,255,255,.96);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.34), rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, rgba(255,71,87,.98), rgba(255,71,87,.84));
+      box-shadow:
+        0 18px 45px rgba(255,71,87,.18),
+        0 18px 55px rgba(0,0,0,.32);
+    }
+    .btn.primary:hover{ transform: translateY(-1px); filter: brightness(1.02) saturate(1.02); }
+    .btn.primary:active{ transform: translateY(0); filter: brightness(.99) saturate(.98); }
+    .btn:focus-visible{ outline:none; box-shadow: var(--ring); }
+    .btn[disabled]{
+      cursor:not-allowed;
+      opacity:.52;
+      transform:none;
+      filter:none;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+    }
+    .btn[disabled]::before{ opacity:0; }
+
+    /* Reduce glow on ultra-small screens, keep tap feel */
+    @media (max-width: 420px){
+      .btn::before{ background: radial-gradient(180px 80px at 22% 10%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%); }
+    }
+
+    .form{ display:grid; gap: 14px; margin-top: 4px; padding-bottom: 18px; }
+    .field{ display:flex; flex-direction:column; gap:8px; }
+
+    label{
+      font-weight: 700;
+      font-size: 13.5px;
+      letter-spacing: -0.1px;
+      color: rgba(255,255,255,.86);
+    }
+
+    input[type="text"], input[type="email"]{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.92);
+      font-size: 15px;
+      outline:none;
+      transition: box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    input::placeholder{ color: rgba(255,255,255,.42); }
+
+    input:focus{
+      border-color: rgba(255,71,87,.38);
+      box-shadow: var(--ring);
+      background: rgba(0,0,0,.26);
+    }
+
+    .hint{
+      margin-top: 6px;
+      color: rgba(255,255,255,.58);
+      font-size: 12.75px;
+      line-height: 1.35;
+    }
+
+    .error{
+      margin-top: 6px;
+      color: rgba(255,255,255,.86);
+      font-size: 12.75px;
+      line-height: 1.35;
+      display:none;
+    }
+    .error.show{ display:block; }
+
+    .field.has-error input{
+      border-color: rgba(255,71,87,.42);
+      box-shadow: 0 0 0 3px rgba(255,71,87,.16);
+    }
+
+    .consent{
+
+      margin-top: 2px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.035);
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+
+    .check{
+      appearance:none;
+      -webkit-appearance:none;
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.24);
+      margin-top: 2px;
+      cursor:pointer;
+      position:relative;
+      flex: 0 0 auto;
+      transition: box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .check:focus-visible{ outline:none; box-shadow: var(--ring); }
+
+    .check:checked{
+      border-color: rgba(255,71,87,.65);
+      background: rgba(255,71,87,.20);
+      box-shadow: 0 0 0 3px rgba(255,71,87,.18);
+    }
+
+    .check:checked::after{
+      content:"";
+      position:absolute;
+      left: 5px;
+      top: 2px;
+      width: 5px;
+      height: 9px;
+      border-right: 2px solid rgba(255,255,255,.92);
+      border-bottom: 2px solid rgba(255,255,255,.92);
+      transform: rotate(40deg);
+    }
+
+    .consent-text{
+      min-width: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .terms-link{
+      display:inline-block;
+      margin-top: 8px;
+      color: rgba(255,255,255,.88);
+      text-decoration:none;
+      font-weight: 720;
+      letter-spacing: -0.1px;
+      border-bottom: 1px solid rgba(255,255,255,.22);
+      padding-bottom: 2px;
+      background: transparent;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      cursor:pointer;
+      transition: color .16s ease, border-color .16s ease, transform .16s ease;
+    }
+
+    .terms-link:hover{
+      color: rgba(255,255,255,.96);
+      border-bottom-color: rgba(255,71,87,.55);
+      transform: translateY(-1px);
+    }
+
+    .terms-link:focus-visible{
+      outline:none;
+      box-shadow: var(--ring);
+      border-bottom-color: rgba(255,71,87,.75);
+      border-radius: 8px;
+    }
+
+    .terms-panel{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(93,253,203,.10), transparent 65%),
+        rgba(0,0,0,.20);
+      padding: 14px 14px;
+      color: rgba(255,255,255,.80);
+      font-size: 13.25px;
+      line-height: 1.55;
+      display:none;
+      /* Internal scroll so it never pushes CTA off-screen */
+      max-height: min(280px, 34vh);
+      overflow-y:auto;
+      overflow-x:hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+      position: relative;
+    }
+
+    .terms-panel.open{ display:block; }
+
+    /* Scroll hint without covering text (no overlay gradients on top of copy) */
+    .terms-panel{
+      box-shadow: inset 0 10px 18px rgba(0,0,0,.18), inset 0 -10px 18px rgba(0,0,0,.18);
+    }
+    
+    .success{
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(93,253,203,.30);
+      background:
+        radial-gradient(700px 220px at 18% 0%, rgba(93,253,203,.14), transparent 65%),
+        rgba(0,0,0,.18);
+      color: rgba(255,255,255,.88);
+      display:none;
+    }
+    .success.show{ display:block; }
+
+    .success strong{ display:block; font-weight: 800; }
+    .success span{ display:block; margin-top: 6px; color: rgba(255,255,255,.72); }
+
+    @media (max-width: 420px){
+      .gate{ padding: 14px; }
+      .top-right{ top: 14px; right: 14px; }
+      .top-pill{ font-size: 13.5px; padding: 11px 13px; }
+      .inner{ padding: 18px; }
+      .actions{ justify-content:stretch; }
+      .btn{ width:100%; }
+      .steps{ min-height: 520px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .step, .card, .btn, .top-pill, .terms-link{ transition:none; }
+    }
+
+    /* Desktop-only exit-intent guard */
+    .exitguard{
+      position:absolute;
+      inset:0;
+      z-index:4;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .exitguard.show{ display:flex; }
+
+    .exitguard-card{
+      width: min(560px, 100%);
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(900px 420px at 18% 0%, rgba(255,71,87,.12), transparent 60%),
+        radial-gradient(900px 420px at 82% 10%, rgba(93,253,203,.10), transparent 62%),
+        rgba(255,255,255,.055);
+      box-shadow: var(--shadow2);
+      padding: 20px 20px;
+    }
+
+    .exitguard-emoji{
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 10px;
+      opacity: .95;
+    }
+
+    .exitguard-title{
+      margin:0;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-weight: 650;
+      letter-spacing: -0.3px;
+      font-size: 26px;
+      line-height: 1.08;
+    }
+
+    .exitguard-copy{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14.75px;
+      line-height: 1.5;
+    }
+
+    .exitguard-actions{
+      display:flex;
+      justify-content:flex-end;
+      margin-top: 16px;
+    }
+
+    .exitguard-foot{
+      margin: 12px 0 0;
+      color: rgba(255,255,255,.56);
+      font-size: 12.75px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 420px){
+      .exitguard{ padding: 14px; }
+      .exitguard-card{ padding: 18px 16px; }
+      .exitguard-title{ font-size: 24px; }
+      .exitguard-actions{ justify-content:stretch; }
+      .exitguard-actions .btn{ width:100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .exitguard-card{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="ParallelYou access gate">
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+    <div class="top-right">
+      <a class="top-pill" href="https://shopanova-bloom.my.canva.site" target="_blank" rel="noopener" aria-label="View full program details">
+        <span class="pill-dot" aria-hidden="true"></span>
+        View full program details
       </a>
     </div>
 
-    <!-- EXIT INTENT POPUP (DESKTOP ONLY) -->
-    <div class="exit-overlay" id="exit-overlay" aria-hidden="true">
-      <div class="exit-modal">
-        <div class="exit-header">
-          <div class="exit-title">Wait. You’re one click away from a business that runs on your mind, not your time.</div>
-          <button class="exit-close" type="button" data-exit-close aria-label="Close popup">
-            ✕
-          </button>
+    <main class="modal" role="document">
+      <div class="inner">
+        <div class="steps" id="steps">
+
+          <section class="step active" id="s1" aria-labelledby="s1t">
+            <h1 class="title" id="s1t">Unlock Your ParallelYou™</h1>
+            <p class="subtitle">Request exclusive launch details and early access information tailored to your goals.</p>
+            <div class="divider" aria-hidden="true"></div>
+
+            <div class="cards" id="roleGroup" role="radiogroup" aria-label="Select your role">
+              <button class="card" type="button" role="radio" aria-checked="false" data-value="Consultant or Advisor">
+                <div class="mark" aria-hidden="true"></div>
+                <div>
+                  <h3>I am a Consultant or Advisor</h3>
+                  <p>Who wants to scale their expertise without diluting their voice.</p>
+                </div>
+              </button>
+
+              <button class="card" type="button" role="radio" aria-checked="false" data-value="Founder or Operator">
+                <div class="mark" aria-hidden="true"></div>
+                <div>
+                  <h3>I am a Founder or Operator</h3>
+                  <p>Who needs clarity and consistency while focusing on high-leverage strategy.</p>
+                </div>
+              </button>
+
+              <button class="card" type="button" role="radio" aria-checked="false" data-value="Creator or Educator">
+                <div class="mark" aria-hidden="true"></div>
+                <div>
+                  <h3>I am a Creator or Educator</h3>
+                  <p>Who wants stronger communication and more reach without burnout.</p>
+                </div>
+              </button>
+            </div>
+
+            <div class="actions">
+              <button class="btn primary" id="continue" type="button" disabled>CONTINUE</button>
+            </div>
+          </section>
+
+          <section class="step" id="s2" aria-labelledby="s2t" aria-hidden="true">
+            <h1 class="title" id="s2t">Claim Your Access</h1>
+            <p class="subtitle">Receive exclusive information about the ParallelYou™ founder launch.</p>
+            <div class="divider" aria-hidden="true"></div>
+
+            <form class="form" id="form" novalidate>
+              <div class="field" id="fullNameField">
+                <label for="fullName">Full Name</label>
+                <input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="John Doe" required aria-describedby="fullNameErr" aria-invalid="false" />
+                <div class="error" id="fullNameErr" aria-live="polite">Full name required.</div>
+              </div>
+
+              <div class="field" id="emailField">
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="john@example.com" required aria-describedby="emailErr" aria-invalid="false" />
+                <div class="error" id="emailErr" aria-live="polite">Enter a valid email.</div>
+              </div>
+
+              <div class="consent">
+                <input class="check" id="consent" type="checkbox" aria-describedby="consentCopy" />
+                <div class="consent-text" id="consentCopy">
+                  <div>I agree to the terms and consent to receive communications as described above.</div>
+                  <div class="hint">You can unsubscribe anytime. We never sell your data.</div>
+                  <button class="terms-link" id="termsToggle" type="button" aria-expanded="false" aria-controls="termsPanel">Terms &amp; Consent</button>
+                  <div class="terms-panel" id="termsPanel" role="region" aria-label="Terms and consent details" tabindex="0">
+                    <strong>Terms &amp; Consent</strong>
+                    <div style="height:10px"></div>
+                    By submitting this form, you consent to receive communication from ParallelYou™ (Dixie Briseno) and related brands operated by Dixie Briseno at 1200 2nd St, Sacramento, CA 95814 via email, SMS/text messages, and direct message. Communication may include program updates, resources, educational content, future offerings, and marketing materials. Message frequency varies (typically 1–4 messages per month). You may opt out at any time by replying "STOP" to SMS messages or using the unsubscribe link in emails. Your information is confidential and will never be sold or shared with third parties. Message and data rates may apply.
+                  </div>
+                </div>
+              </div>
+
+              <div class="actions actions-sticky">
+                <button class="btn primary" id="submit" type="submit" disabled>GET INSTANT ACCESS</button>
+              </div>
+
+              <div class="success" id="success" aria-live="polite">
+                <strong>Access requested.</strong>
+                <span>Preparing your next step.</span>
+              </div>
+            </form>
+          </section>
+
         </div>
-        <div class="exit-body">
-        <p>
-          On the next page you’ll confirm what kind of leader you are, enter your best email, and unlock the full ParallelYou™ breakdown.
-        </p>
-        <p>
-          <strong>
-            Holiday founding pricing is active through December 31. After that, enrollment reopens at standard founder cohort investment.
-          </strong>
-        </p>
-        <p class="exit-meta">
-          You’ll see the full structure, support and pricing before you decide. No payment is collected automatically.
-        </p>
       </div>
-        <div class="exit-actions">
-          <a
-            href="https://dixie-py.github.io/parallelyou-popopt/"
-            class="btn-primary"
-          >
-            Access full details and pricing
-          </a>
-          <div class="exit-secondary">This popup will not show again.</div>
+    </main>
+
+    <!-- Desktop exit-intent guard (does not run on mobile) -->
+    <div class="exitguard" id="exitGuard" role="dialog" aria-modal="true" aria-label="Exit warning" aria-hidden="true">
+      <div class="exitguard-card" role="document">
+        <div class="exitguard-emoji" aria-hidden="true">⏰</div>
+        <h2 class="exitguard-title">Wait do not leave this step unfinished</h2>
+        <p class="exitguard-copy">Founding Cohort rates increase after December 31st. Rates rise significantly soon.</p>
+        <p class="exitguard-copy">Access a deeper look at the vision and transformation your EchoClone™ unlocks on the next page.</p>
+
+        <div class="exitguard-actions">
+          <button class="btn primary" id="exitGuardContinue" type="button">Continue</button>
         </div>
-      </div>
-    </div>
 
-    <!-- LEGAL MODAL -->
-    <div class="legal-overlay" id="legal-overlay" aria-hidden="true">
-      <div class="legal-modal">
-        <div class="legal-header">
-          <div class="legal-title" id="legal-title">Universal Legal Suite</div>
-          <button class="legal-close" type="button" data-legal-close aria-label="Close legal modal">
-            ✕
-          </button>
-        </div>
-        <div class="legal-body" id="legal-body">
-          <h4>Universal Legal Suite for Dixie Briseno and all related brands</h4>
-          <p>
-            Applies to: Dixie Briseno, ParallelYou™, Authority Scale™, EchoClone™, SelfOS™, The
-            Scaling Socialite, RevenueHaus® and The Sovereign Société™ along with any present or
-            future entities under her ownership.
-          </p>
-
-          <h4>1. Terms of Service (summary)</h4>
-          <p>
-            By accessing or using any of our websites, programs, AI tools, software, content or
-            services you agree to be bound by our full Terms of Service. All content, systems,
-            branding, AI prompts, frameworks, automations, designs, code and proprietary
-            intellectual property are protected. You may not copy, resell, publish, redistribute,
-            reverse engineer or train AI models on our material without written permission.
-          </p>
-
-          <h4>2. Payments and refunds</h4>
-          <p>
-            Unless explicitly stated otherwise, all sales are final. Subscriptions may renew
-            automatically according to the plan selected. Chargeback attempts are treated as a
-            breach of contract. Billing questions must be sent to:
-            <strong>weare@authorityscale.com</strong>
-          </p>
-
-          <h4>3. AI and automation disclaimer</h4>
-          <p>
-            Our AI tools, including ParallelYou™, EchoClone™ and SelfOS™, may generate inaccurate or
-            incomplete output. All output is informational only. You are responsible for verifying
-            accuracy before implementation. We do not guarantee income, business growth, visibility,
-            client acquisition, personal transformation, health, financial or legal outcomes.
-          </p>
-
-          <h4>4. Limitation of liability</h4>
-          <p>
-            To the fullest extent allowed by law, the Company is not liable for indirect, incidental,
-            punitive or consequential damages. Total liability will not exceed the amount paid to
-            the Company within the prior 12 months.
-          </p>
-
-          <h4>5. Privacy and cookies (summary)</h4>
-          <p>
-            We collect personal data that you provide, along with device, usage and analytics data.
-            We use this information to operate and improve our services, process payments, prevent
-            fraud and comply with legal obligations. We do not sell your personal data. You may
-            request access, correction or deletion of your data and may opt out of marketing by
-            contacting us at the email above.
-          </p>
-
-          <h4>6. DMCA Notice</h4>
-          <p>
-            If you believe your copyrighted work has been infringed by any brand owned by Dixie
-            Briseno, please send a written DMCA notice to our DMCA Agent at
-            <strong>weare@authorityscale.com</strong>
-            with the subject line:
-            <strong>DMCA NOTICE - COPYRIGHT INFRINGEMENT</strong>. Include your legal name, a
-            description of the copyrighted work, the URL of the material you believe is infringing,
-            a sworn statement that you are authorized to act and your electronic signature.
-          </p>
-
-          <p class="legal-footnote">
-            This is a condensed summary provided for convenience. The full Terms of Service, Privacy
-            Policy, Cookie Policy, Disclaimer, Refund Policy and DMCA Notice apply in all cases and
-            control if there is any conflict or ambiguity.
-          </p>
-        </div>
+        <p class="exitguard-foot">No credit card required on this step. This popup will not show again.</p>
       </div>
     </div>
+  </div>
 
-    <script>
-      // Smooth scroll for internal hero button
-      document.querySelectorAll("[data-scroll-target]").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var targetId = btn.getAttribute("data-scroll-target");
-          var target = document.querySelector(targetId);
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
+  <script>
+    (function(){
+      const NEXT_URL = "https://dixie-py.github.io/parallelyou-enroll/"; // Next step in funnel
+      const SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbwN9xzRhBYx8zY23OFj9h8m7Ymv6TsZ5tzM-D25Dy9pMdP43X0kahWkNkh82-Pqo-MAFg/exec"; // Paste your Google Apps Script Web App URL here (NOT the Google Sheet link).
+
+      const gate = document.getElementById('gate');
+      const scrim = document.getElementById('scrim');
+      const s1 = document.getElementById('s1');
+      const s2 = document.getElementById('s2');
+
+      const roleGroup = document.getElementById('roleGroup');
+      const cards = Array.from(roleGroup.querySelectorAll('.card'));
+      const continueBtn = document.getElementById('continue');
+
+      const form = document.getElementById('form');
+      const fullNameField = document.getElementById('fullNameField');
+      const emailField = document.getElementById('emailField');
+      const fullNameErr = document.getElementById('fullNameErr');
+      const emailErr = document.getElementById('emailErr');
+      const fullName = document.getElementById('fullName');
+      const email = document.getElementById('email');
+      const consent = document.getElementById('consent');
+      const submitBtn = document.getElementById('submit');
+      const success = document.getElementById('success');
+
+      const termsToggle = document.getElementById('termsToggle');
+      const termsPanel = document.getElementById('termsPanel');
+
+      // Desktop-only exit intent guard
+      const exitGuard = document.getElementById('exitGuard');
+      const exitGuardContinue = document.getElementById('exitGuardContinue');
+
+      let selectedRole = "";
+      let submitAttempted = false;
+
+      // Non-dismissable: block Esc for the main gate and the exit guard
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+        }
+      }, true);
+
+      // Desktop-only exit intent logic (never runs on mobile)
+      const desktopEligible = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth >= 768;
+      const EXIT_GUARD_KEY = 'py_exit_guard_seen_v1';
+      let exitGuardOpen = false;
+      // When true, never show exit intent or native leave warnings (submit/redirect in progress)
+      let isFinalizing = false;
+
+      function openExitGuard(){
+        if (!desktopEligible) return;
+        if (!exitGuard || !exitGuardContinue) return;
+        if (exitGuardOpen) return;
+        if (isFinalizing) return;
+        if (sessionStorage.getItem(EXIT_GUARD_KEY) === '1') return;
+
+        exitGuardOpen = true;
+        sessionStorage.setItem(EXIT_GUARD_KEY, '1');
+        exitGuard.classList.add('show');
+        exitGuard.setAttribute('aria-hidden', 'false');
+        setTimeout(() => exitGuardContinue.focus(), 40);
+      }
+
+      function closeExitGuard(){
+        if (!exitGuard) return;
+        exitGuardOpen = false;
+        exitGuard.classList.remove('show');
+        exitGuard.setAttribute('aria-hidden', 'true');
+        // Restore focus
+        if (s2.classList.contains('active')){
+          if (!submitBtn.disabled) submitBtn.focus(); else fullName.focus();
+        } else {
+          (continueBtn.disabled ? cards[0] : continueBtn).focus();
+        }
+      }
+
+      if (exitGuardContinue){
+        exitGuardContinue.addEventListener('click', closeExitGuard);
+      }
+
+      // Trigger when cursor leaves the top edge (classic exit intent)
+      document.addEventListener('mouseout', (e) => {
+        if (!desktopEligible) return;
+        if (exitGuardOpen) return;
+        if (!e) return;
+        const to = e.relatedTarget || e.toElement;
+        if (to) return;
+        if (e.clientY <= 0) openExitGuard();
+      });
+
+      // We intentionally do NOT use beforeunload.
+      // It causes a native "Leave site?" warning and can interfere with redirects,
+      // which hurts conversions and conflicts with the funnel constraint.
+      // Exit intent is handled via the desktop-only top-edge mouseout guard only.
+      window.addEventListener('beforeunload', (e) => {
+        if (!desktopEligible) return;
+        if (!hasInteracted) return;
+        if (sessionStorage.getItem(EXIT_GUARD_KEY) === '1') return;
+        openExitGuard();
+        e.preventDefault();
+        e.returnValue = '';
+      });
+
+      // Focus trap
+      const focusableSel = [
+        'a[href]',
+        'button:not([disabled])',
+        'input:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(',');
+
+      function getFocusable(){
+        // If exit guard is open, trap inside it
+        const scope = (exitGuard && exitGuard.classList.contains('show')) ? exitGuard : gate;
+        return Array.from(scope.querySelectorAll(focusableSel)).filter(el => el.offsetParent !== null);
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const items = getFocusable();
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first){
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last){
+          e.preventDefault();
+          first.focus();
+        }
+      }, true);
+
+      // Step 1 selection
+      function setSelected(idx){
+        cards.forEach((btn, i) => {
+          const on = i === idx;
+          btn.classList.toggle('selected', on);
+          btn.setAttribute('aria-checked', on ? 'true' : 'false');
+          if (on) selectedRole = btn.dataset.value || "";
+        });
+        continueBtn.disabled = !selectedRole;
+      }
+
+      cards.forEach((btn, i) => {
+        btn.addEventListener('click', () => setSelected(i));
+        btn.addEventListener('keydown', (e) => {
+          const k = e.key;
+          if (k === 'Enter' || k === ' '){
+            e.preventDefault();
+            setSelected(i);
+            return;
+          }
+          if (k === 'ArrowDown' || k === 'ArrowRight'){
+            e.preventDefault();
+            cards[(i + 1) % cards.length].focus();
+            return;
+          }
+          if (k === 'ArrowUp' || k === 'ArrowLeft'){
+            e.preventDefault();
+            cards[(i - 1 + cards.length) % cards.length].focus();
           }
         });
       });
 
-      // Exit intent popup - desktop only
-      (function () {
-        var exitOverlay = document.getElementById("exit-overlay");
-        var exitShown = false;
+      function goToStep2(){
+        s1.classList.remove('active');
+        s1.setAttribute('aria-hidden', 'true');
+        s2.classList.add('active');
+        s2.removeAttribute('aria-hidden');
+        setTimeout(() => fullName.focus(), 60);
+      }
 
-        function showExit() {
-          if (exitOverlay && !exitShown) {
-            exitOverlay.classList.add("visible");
-            exitOverlay.setAttribute("aria-hidden", "false");
-            exitShown = true;
-          }
+      function goToStep1(){
+        s2.classList.remove('active');
+        s2.setAttribute('aria-hidden', 'true');
+        s1.classList.add('active');
+        s1.removeAttribute('aria-hidden');
+        setTimeout(() => {
+          const idx = Math.max(0, cards.findIndex(b => (b.dataset.value || '') === selectedRole));
+          (cards[idx] || cards[0]).focus();
+        }, 60);
+      }
+
+      function showFieldError(fieldEl, errEl){
+        fieldEl.classList.add('has-error');
+        errEl.classList.add('show');
+      }
+      function hideFieldError(fieldEl, errEl){
+        fieldEl.classList.remove('has-error');
+        errEl.classList.remove('show');
+      }
+
+      continueBtn.addEventListener('click', () => {
+        if (!selectedRole) return;
+        goToStep2();
+      });
+
+      // Terms dropdown stays open until toggled
+      let suppressNextBlur = false;
+
+      // Prevent blur-validation when user clicks Terms (first click should open, not scold)
+      termsToggle.addEventListener('pointerdown', () => { suppressNextBlur = true; }, { passive:true });
+
+      // Terms dropdown stays open until toggled
+      termsToggle.addEventListener('click', () => {
+        const open = termsPanel.classList.toggle('open');
+        termsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open){
+          // Ensure it opens predictably at the top
+          termsPanel.scrollTop = 0;
+        }
+      });
+
+      function isValidEmail(v){
+        const s = String(v || '').trim();
+        const at = s.indexOf('@');
+        if (at < 1) return false;
+        const dot = s.lastIndexOf('.');
+        if (dot <= at + 1) return false;
+        if (dot >= s.length - 1) return false;
+        return true;
+      }
+
+      function validateFields(show){
+        const nameOk = String(fullName.value || '').trim().length > 1;
+        const emailOk = isValidEmail(email.value);
+
+        if (show){
+          if (!nameOk) showFieldError(fullNameField, fullNameErr); else hideFieldError(fullNameField, fullNameErr);
+          if (!emailOk) showFieldError(emailField, emailErr); else hideFieldError(emailField, emailErr);
+          fullName.setAttribute('aria-invalid', nameOk ? 'false' : 'true');
+          email.setAttribute('aria-invalid', emailOk ? 'false' : 'true');
+        }
+        return { nameOk, emailOk };
+      }
+
+      function sync(){
+        const { nameOk, emailOk } = validateFields(submitAttempted);
+        const consentOk = !!consent.checked;
+        submitBtn.disabled = !(nameOk && emailOk && consentOk);
+      }
+
+      function syncOnInput(){
+        if (submitAttempted) validateFields(true);
+        const nameOk = String(fullName.value || '').trim().length > 1;
+        const emailOk = isValidEmail(email.value);
+        const consentOk = !!consent.checked;
+        submitBtn.disabled = !(nameOk && emailOk && consentOk);
+      }
+
+      
+      fullName.addEventListener('input', syncOnInput);
+      email.addEventListener('input', syncOnInput);
+      fullName.addEventListener('blur', () => {
+        if (suppressNextBlur){ suppressNextBlur = false; return; }
+        submitAttempted = true;
+        validateFields(true);
+        sync();
+      });
+      email.addEventListener('blur', () => {
+        if (suppressNextBlur){ suppressNextBlur = false; return; }
+        submitAttempted = true;
+        validateFields(true);
+        sync();
+      });
+      consent.addEventListener('change', () => {
+        submitAttempted = true;
+        sync();
+        // If they just agreed, collapse Terms automatically (keeps momentum)
+        if (consent.checked && termsPanel.classList.contains('open')){
+          termsPanel.classList.remove('open');
+          termsToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      async function sendPayload(payload){
+        // IMPORTANT: A Google Sheet link cannot receive data.
+        // You must use a Google Apps Script Web App URL (Deploy -> Web app) that writes into your sheet.
+        // To avoid CORS/preflight issues on GitHub Pages, we send as text/plain with no-cors.
+        if (!SUBMIT_ENDPOINT || !/^https:\/\//i.test(SUBMIT_ENDPOINT)) return;
+
+        const body = JSON.stringify(payload);
+        await fetch(SUBMIT_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body
+        });
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitAttempted = true;
+        sync();
+        if (submitBtn.disabled){
+          validateFields(true);
+          return;
         }
 
-        if (window.innerWidth >= 768) {
-          document.addEventListener("mouseleave", function (e) {
-            if (e.clientY <= 0) {
-              showExit();
-            }
-          });
+        // Once they submit, we never interrupt the redirect with exit intent.
+        isFinalizing = true;
+        if (exitGuardOpen) closeExitGuard();
+
+        const payload = {
+          role: selectedRole,
+          fullName: String(fullName.value || '').trim(),
+          email: String(email.value || '').trim(),
+          consent: true,
+          page: window.location.href,
+          ts: new Date().toISOString()
+        };
+
+        console.log('[ParallelYou] Gate submit', payload);
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'PROCESSING...';
+        success.classList.add('show');
+        try{
+          await sendPayload(payload);
+        } catch (err){
+          console.warn('[ParallelYou] Submit error', err);
         }
 
-        document.querySelectorAll("[data-exit-close]").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            exitOverlay.classList.remove("visible");
-            exitOverlay.setAttribute("aria-hidden", "true");
-          });
-        });
-      })();
-
-      // Legal modal handling
-      (function () {
-        var overlay = document.getElementById("legal-overlay");
-        var titleEl = document.getElementById("legal-title");
-
-        function openLegal(kind) {
-          if (!overlay) return;
-          overlay.classList.add("visible");
-          overlay.setAttribute("aria-hidden", "false");
-
-          var label = "Universal Legal Suite";
-          if (kind === "terms") label = "Terms of Service (summary)";
-          if (kind === "privacy") label = "Privacy Policy (summary)";
-          if (kind === "cookies") label = "Cookie Policy (summary)";
-          if (kind === "disclaimer") label = "Universal Disclaimer";
-          if (kind === "refund") label = "Refund Policy (summary)";
-          if (kind === "dmca") label = "DMCA Notice";
-
-          titleEl.textContent = label;
+        // Redirect is the primary conversion action. We redirect even if logging fails.
+        if (NEXT_URL){
+          setTimeout(() => { window.location.assign(NEXT_URL); }, 520);
+          return;
+        } else {
+          submitBtn.textContent = 'GET INSTANT ACCESS';
+          submitBtn.disabled = false;
         }
+      });
+      // Prevent background scroll gestures on the backdrop only.
+      // Do NOT block scrolling inside the modal or terms panel.
+      const block = (e) => { e.preventDefault(); };
+      scrim.addEventListener('wheel', block, { passive:false });
+      scrim.addEventListener('touchmove', block, { passive:false });
+      
+      // Initial focus
+      setTimeout(() => cards[0].focus(), 60);
 
-        document.querySelectorAll("[data-legal]").forEach(function (link) {
-          link.addEventListener("click", function (e) {
-            e.preventDefault();
-            var kind = link.getAttribute("data-legal");
-            openLegal(kind);
-          });
-        });
-
-        document.querySelectorAll("[data-legal-close]").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            overlay.classList.remove("visible");
-            overlay.setAttribute("aria-hidden", "true");
-          });
-        });
-
-        overlay &&
-          overlay.addEventListener("click", function (e) {
-            if (e.target === overlay) {
-              overlay.classList.remove("visible");
-              overlay.setAttribute("aria-hidden", "true");
-            }
-          });
-      })();
-    </script>
-  </body>
+      // Ensure the Terms panel can be scrolled with wheel/touch when open
+      termsPanel.addEventListener('wheel', (e) => {
+        const atTop = termsPanel.scrollTop <= 0;
+        const atBottom = Math.ceil(termsPanel.scrollTop + termsPanel.clientHeight) >= termsPanel.scrollHeight;
+        if (!(atTop && e.deltaY < 0) && !(atBottom && e.deltaY > 0)){
+          e.stopPropagation();
+        }
+      }, { passive:true });
+      termsPanel.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+      }, { passive:true });
+      sync();
+    })();
+  </script>
+</body>
 </html>
