@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ParallelYou™ | Access</title>
+  <meta name="description" content="ParallelYou™ access gate." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Favicon (ParallelYou) -->
+  <link rel="icon" type="image/png" href="https://i.imgur.com/EY0fRNKA.png" />
+  <link rel="apple-touch-icon" href="https://i.imgur.com/EY0fRNKA.png" />
+
+  <!--
+    Integration Notes
+    - This file is intentionally a standalone, pop-up style gate page (no header/footer), per your funnel constraint.
+    - Data capture:
+      1) Set SUBMIT_ENDPOINT to your backend URL (Google Apps Script, Make.com webhook, Zapier Catch Hook, Supabase Edge Function, etc).
+      2) The payload is posted as JSON.
+      3) If SUBMIT_ENDPOINT is blank, it logs to console only.
+    - Redirect:
+      - Set NEXT_URL when you have the next page link.
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      /* Replace these with your JSON tokens when provided */
+      --bg0:#05070c;
+      --bg1:#070a12;
+
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.085);
+      --border: rgba(255,255,255,.12);
+      --border2: rgba(255,255,255,.18);
+
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --soft: rgba(255,255,255,.54);
+
+      --coral:#ff4757;
+      --teal:#5dfdcb;
+
+      --r-lg: 26px;
+      --r-md: 18px;
+      --r-sm: 14px;
+
+      --shadow: 0 30px 80px rgba(0,0,0,.62);
+      --shadow2: 0 18px 52px rgba(0,0,0,.45);
+
+      --ring: 0 0 0 3px rgba(255,71,87,.22);
+
+      --maxw: 780px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 650px at 20% 10%, rgba(93,253,203,.10), transparent 60%),
+        radial-gradient(900px 650px at 78% 18%, rgba(255,71,87,.12), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      overflow:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Full-screen non-dismissable gate */
+    .gate{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .scrim{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.70);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      /* Prevent touch scroll on the backdrop only */
+      touch-action: none;
+    }
+
+    /* Mirror the exact top-right pill label and placement from Page 2 */
+    .top-right{
+      position:absolute;
+      top:18px;
+      right:18px;
+      z-index:3;
+      pointer-events:none;
+    }
+
+    .top-pill{
+      pointer-events:auto;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.88);
+      text-decoration:none;
+      font-weight:650;
+      font-size:14px;
+      letter-spacing:.1px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .top-pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.085);
+    }
+    .top-pill:focus-visible{
+      outline:none;
+      box-shadow: var(--ring), 0 14px 34px rgba(0,0,0,.35);
+    }
+    .pill-dot{
+      width:9px;height:9px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), rgba(255,71,87,.95));
+      box-shadow: 0 0 0 3px rgba(255,71,87,.14);
+      flex:0 0 auto;
+    }
+
+    .modal{
+      position:relative;
+      z-index:2;
+      width: min(var(--maxw), 100%);
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(1100px 720px at 12% 0%, rgba(93,253,203,.12), transparent 55%),
+        radial-gradient(1000px 700px at 92% 10%, rgba(255,71,87,.10), transparent 60%),
+        rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      max-height: calc(100vh - 36px);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .inner{
+      padding: clamp(18px, 3.2vw, 32px);
+      flex: 1 1 auto;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    .title{
+      margin:0;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(28px, 3.2vw, 40px);
+      letter-spacing: -0.4px;
+      line-height: 1.02;
+    }
+
+    .subtitle{
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 56ch;
+      font-size: 15.5px;
+      line-height: 1.5;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin: 18px 0 18px;
+    }
+
+    .steps{
+      position:relative;
+      min-height: 0;
+    }
+
+    /*
+      Important: steps are NOT absolutely positioned so the modal can scroll.
+      We still keep the transition premium via opacity + transform.
+    */
+    .step{
+      display:none;
+      opacity:0;
+      transform: translateY(10px);
+    }
+    .step.active{
+      display:block;
+      opacity:1;
+      transform: translateY(0);
+      animation: pyFadeUp .22s ease both;
+    }
+
+    @keyframes pyFadeUp{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .card{
+      width:100%;
+      text-align:left;
+      cursor:pointer;
+      display:flex;
+      gap: 14px;
+      padding: 16px 16px;
+      border-radius: var(--r-md);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 18px 44px rgba(0,0,0,.22);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+      /* Force consistent text color inside <button> across browsers */
+      color: var(--text);
+      transform: translateZ(0);
+    }
+    .card:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 22px 55px rgba(0,0,0,.26);
+    }
+    .card:focus-visible{
+      outline:none;
+      box-shadow: var(--ring), 0 22px 55px rgba(0,0,0,.26);
+    }
+
+    .mark{
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.18);
+      margin-top: 2px;
+      flex: 0 0 auto;
+      position:relative;
+    }
+    .mark::after{
+      content:"";
+      position:absolute;
+      inset: 4px;
+      border-radius: 999px;
+      opacity:0;
+      transform: scale(.85);
+      transition: opacity .14s ease, transform .14s ease;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), rgba(255,71,87,.95));
+    }
+
+    .card h3{
+      margin:0;
+      font-weight: 740;
+      letter-spacing: -0.15px;
+      font-size: 16px;
+      line-height: 1.22;
+      color: rgba(255,255,255,.92);
+    }
+    .card p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14.25px;
+      line-height: 1.45;
+    }
+
+    .card.selected{
+      border-color: rgba(255,71,87,.60);
+      background:
+        radial-gradient(700px 260px at 18% 0%, rgba(255,71,87,.14), transparent 62%),
+        rgba(255,255,255,.05);
+      box-shadow:
+        inset 0 0 0 2px rgba(255,71,87,.18),
+        0 0 0 4px rgba(255,71,87,.10),
+        0 22px 55px rgba(0,0,0,.30);
+    }
+    .card.selected h3{ color: rgba(255,255,255,.96); }
+
+    .card.selected .mark::after{
+      opacity:1;
+      transform: scale(1);
+    }
+
+    .actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      margin-top: 18px;
+    }
+
+    /* Sticky CTA row (Step 2) keeps momentum visible at all times */
+    .actions.actions-sticky{
+      position: sticky;
+      bottom: 0;
+      margin-top: 16px;
+      padding-top: 12px;
+      padding-bottom: 2px;
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      background: linear-gradient(180deg, rgba(5,7,12,0), rgba(5,7,12,.72) 22%, rgba(5,7,12,.88));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      font-size: 14px;
+      user-select:none;
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+      transition: transform .16s ease, filter .16s ease, opacity .16s ease;
+    }
+
+    /* premium sheen + depth, matches Page 1/2 energy without noise */
+    .btn::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: inherit;
+      pointer-events:none;
+      opacity: 0;
+      transform: translateX(-10%) translateY(-6%);
+      transition: opacity .18s ease, transform .28s ease;
+      background: radial-gradient(220px 90px at 20% 10%, rgba(255,255,255,.32), rgba(255,255,255,0) 60%);
+      mix-blend-mode: screen;
+    }
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: inherit;
+      pointer-events:none;
+      opacity: 1;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 45%);
+    }
+
+    .btn:hover::before{ opacity: .85; transform: translateX(0) translateY(0); }
+    .btn:active{ transform: translateY(0); filter: brightness(.99); }
+
+    .btn.ghost{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.86);
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+      padding: 12px 14px;
+    }
+    .btn.ghost:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.085);
+      filter: brightness(1.02);
+    }
+    .btn.ghost:active{ transform: translateY(0); }
+
+    .btn.primary{
+
+      color: rgba(255,255,255,.96);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.34), rgba(255,255,255,0) 45%),
+        linear-gradient(180deg, rgba(255,71,87,.98), rgba(255,71,87,.84));
+      box-shadow:
+        0 18px 45px rgba(255,71,87,.18),
+        0 18px 55px rgba(0,0,0,.32);
+    }
+    .btn.primary:hover{ transform: translateY(-1px); filter: brightness(1.02) saturate(1.02); }
+    .btn.primary:active{ transform: translateY(0); filter: brightness(.99) saturate(.98); }
+    .btn:focus-visible{ outline:none; box-shadow: var(--ring); }
+    .btn[disabled]{
+      cursor:not-allowed;
+      opacity:.52;
+      transform:none;
+      filter:none;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+    }
+    .btn[disabled]::before{ opacity:0; }
+
+    /* Reduce glow on ultra-small screens, keep tap feel */
+    @media (max-width: 420px){
+      .btn::before{ background: radial-gradient(180px 80px at 22% 10%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%); }
+    }
+
+    .form{ display:grid; gap: 14px; margin-top: 4px; padding-bottom: 18px; }
+    .field{ display:flex; flex-direction:column; gap:8px; }
+
+    label{
+      font-weight: 700;
+      font-size: 13.5px;
+      letter-spacing: -0.1px;
+      color: rgba(255,255,255,.86);
+    }
+
+    input[type="text"], input[type="email"]{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.92);
+      font-size: 15px;
+      outline:none;
+      transition: box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    input::placeholder{ color: rgba(255,255,255,.42); }
+
+    input:focus{
+      border-color: rgba(255,71,87,.38);
+      box-shadow: var(--ring);
+      background: rgba(0,0,0,.26);
+    }
+
+    .hint{
+      margin-top: 6px;
+      color: rgba(255,255,255,.58);
+      font-size: 12.75px;
+      line-height: 1.35;
+    }
+
+    .error{
+      margin-top: 6px;
+      color: rgba(255,255,255,.86);
+      font-size: 12.75px;
+      line-height: 1.35;
+      display:none;
+    }
+    .error.show{ display:block; }
+
+    .field.has-error input{
+      border-color: rgba(255,71,87,.42);
+      box-shadow: 0 0 0 3px rgba(255,71,87,.16);
+    }
+
+    .consent{
+
+      margin-top: 2px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.035);
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+
+    .check{
+      appearance:none;
+      -webkit-appearance:none;
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.24);
+      margin-top: 2px;
+      cursor:pointer;
+      position:relative;
+      flex: 0 0 auto;
+      transition: box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .check:focus-visible{ outline:none; box-shadow: var(--ring); }
+
+    .check:checked{
+      border-color: rgba(255,71,87,.65);
+      background: rgba(255,71,87,.20);
+      box-shadow: 0 0 0 3px rgba(255,71,87,.18);
+    }
+
+    .check:checked::after{
+      content:"";
+      position:absolute;
+      left: 5px;
+      top: 2px;
+      width: 5px;
+      height: 9px;
+      border-right: 2px solid rgba(255,255,255,.92);
+      border-bottom: 2px solid rgba(255,255,255,.92);
+      transform: rotate(40deg);
+    }
+
+    .consent-text{
+      min-width: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .terms-link{
+      display:inline-block;
+      margin-top: 8px;
+      color: rgba(255,255,255,.88);
+      text-decoration:none;
+      font-weight: 720;
+      letter-spacing: -0.1px;
+      border-bottom: 1px solid rgba(255,255,255,.22);
+      padding-bottom: 2px;
+      background: transparent;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      cursor:pointer;
+      transition: color .16s ease, border-color .16s ease, transform .16s ease;
+    }
+
+    .terms-link:hover{
+      color: rgba(255,255,255,.96);
+      border-bottom-color: rgba(255,71,87,.55);
+      transform: translateY(-1px);
+    }
+
+    .terms-link:focus-visible{
+      outline:none;
+      box-shadow: var(--ring);
+      border-bottom-color: rgba(255,71,87,.75);
+      border-radius: 8px;
+    }
+
+    .terms-panel{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(93,253,203,.10), transparent 65%),
+        rgba(0,0,0,.20);
+      padding: 14px 14px;
+      color: rgba(255,255,255,.80);
+      font-size: 13.25px;
+      line-height: 1.55;
+      display:none;
+      /* Internal scroll so it never pushes CTA off-screen */
+      max-height: min(280px, 34vh);
+      overflow-y:auto;
+      overflow-x:hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+      position: relative;
+    }
+
+    .terms-panel.open{ display:block; }
+
+    /* Scroll hint without covering text (no overlay gradients on top of copy) */
+    .terms-panel{
+      box-shadow: inset 0 10px 18px rgba(0,0,0,.18), inset 0 -10px 18px rgba(0,0,0,.18);
+    }
+    
+    .success{
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(93,253,203,.30);
+      background:
+        radial-gradient(700px 220px at 18% 0%, rgba(93,253,203,.14), transparent 65%),
+        rgba(0,0,0,.18);
+      color: rgba(255,255,255,.88);
+      display:none;
+    }
+    .success.show{ display:block; }
+
+    .success strong{ display:block; font-weight: 800; }
+    .success span{ display:block; margin-top: 6px; color: rgba(255,255,255,.72); }
+
+    @media (max-width: 420px){
+      .gate{ padding: 14px; }
+      .top-right{ top: 14px; right: 14px; }
+      .top-pill{ font-size: 13.5px; padding: 11px 13px; }
+      .inner{ padding: 18px; }
+      .actions{ justify-content:stretch; }
+      .btn{ width:100%; }
+      .steps{ min-height: 520px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .step, .card, .btn, .top-pill, .terms-link{ transition:none; }
+    }
+
+    /* Desktop-only exit-intent guard */
+    .exitguard{
+      position:absolute;
+      inset:0;
+      z-index:4;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .exitguard.show{ display:flex; }
+
+    .exitguard-card{
+      width: min(560px, 100%);
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(900px 420px at 18% 0%, rgba(255,71,87,.12), transparent 60%),
+        radial-gradient(900px 420px at 82% 10%, rgba(93,253,203,.10), transparent 62%),
+        rgba(255,255,255,.055);
+      box-shadow: var(--shadow2);
+      padding: 20px 20px;
+    }
+
+    .exitguard-emoji{
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 10px;
+      opacity: .95;
+    }
+
+    .exitguard-title{
+      margin:0;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-weight: 650;
+      letter-spacing: -0.3px;
+      font-size: 26px;
+      line-height: 1.08;
+    }
+
+    .exitguard-copy{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14.75px;
+      line-height: 1.5;
+    }
+
+    .exitguard-actions{
+      display:flex;
+      justify-content:flex-end;
+      margin-top: 16px;
+    }
+
+    .exitguard-foot{
+      margin: 12px 0 0;
+      color: rgba(255,255,255,.56);
+      font-size: 12.75px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 420px){
+      .exitguard{ padding: 14px; }
+      .exitguard-card{ padding: 18px 16px; }
+      .exitguard-title{ font-size: 24px; }
+      .exitguard-actions{ justify-content:stretch; }
+      .exitguard-actions .btn{ width:100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .exitguard-card{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="ParallelYou access gate">
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+    <div class="top-right">
+      <a class="top-pill" href="https://shopanova-bloom.my.canva.site" target="_blank" rel="noopener" aria-label="View full program details">
+        <span class="pill-dot" aria-hidden="true"></span>
+        View full program details
+      </a>
+    </div>
+
+    <main class="modal" role="document">
+      <div class="inner">
+        <div class="steps" id="steps">
+
+          <section class="step active" id="s1" aria-labelledby="s1t">
+            <h1 class="title" id="s1t">Unlock Your ParallelYou™</h1>
+            <p class="subtitle">Request exclusive launch details and early access information tailored to your goals.</p>
+            <div class="divider" aria-hidden="true"></div>
+
+            <div class="cards" id="roleGroup" role="radiogroup" aria-label="Select your role">
+              <button class="card" type="button" role="radio" aria-checked="false" data-value="Consultant or Advisor">
+                <div class="mark" aria-hidden="true"></div>
+                <div>
+                  <h3>I am a Consultant or Advisor</h3>
+                  <p>Who wants to scale their expertise without diluting their voice.</p>
+                </div>
+              </button>
+
+              <button class="card" type="button" role="radio" aria-checked="false" data-value="Founder or Operator">
+                <div class="mark" aria-hidden="true"></div>
+                <div>
+                  <h3>I am a Founder or Operator</h3>
+                  <p>Who needs clarity and consistency while focusing on high-leverage strategy.</p>
+                </div>
+              </button>
+
+              <button class="card" type="button" role="radio" aria-checked="false" data-value="Creator or Educator">
+                <div class="mark" aria-hidden="true"></div>
+                <div>
+                  <h3>I am a Creator or Educator</h3>
+                  <p>Who wants stronger communication and more reach without burnout.</p>
+                </div>
+              </button>
+            </div>
+
+            <div class="actions">
+              <button class="btn primary" id="continue" type="button" disabled>CONTINUE</button>
+            </div>
+          </section>
+
+          <section class="step" id="s2" aria-labelledby="s2t" aria-hidden="true">
+            <h1 class="title" id="s2t">Claim Your Access</h1>
+            <p class="subtitle">Receive exclusive information about the ParallelYou™ founder launch.</p>
+            <div class="divider" aria-hidden="true"></div>
+
+            <form class="form" id="form" novalidate>
+              <div class="field" id="fullNameField">
+                <label for="fullName">Full Name</label>
+                <input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="John Doe" required aria-describedby="fullNameErr" aria-invalid="false" />
+                <div class="error" id="fullNameErr" aria-live="polite">Full name required.</div>
+              </div>
+
+              <div class="field" id="emailField">
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="john@example.com" required aria-describedby="emailErr" aria-invalid="false" />
+                <div class="error" id="emailErr" aria-live="polite">Enter a valid email.</div>
+              </div>
+
+              <div class="consent">
+                <input class="check" id="consent" type="checkbox" aria-describedby="consentCopy" />
+                <div class="consent-text" id="consentCopy">
+                  <div>I agree to the terms and consent to receive communications as described above.</div>
+                  <div class="hint">You can unsubscribe anytime. We never sell your data.</div>
+                  <button class="terms-link" id="termsToggle" type="button" aria-expanded="false" aria-controls="termsPanel">Terms &amp; Consent</button>
+                  <div class="terms-panel" id="termsPanel" role="region" aria-label="Terms and consent details" tabindex="0">
+                    <strong>Terms &amp; Consent</strong>
+                    <div style="height:10px"></div>
+                    By submitting this form, you consent to receive communication from ParallelYou™ (Dixie Briseno) and related brands operated by Dixie Briseno at 1200 2nd St, Sacramento, CA 95814 via email, SMS/text messages, and direct message. Communication may include program updates, resources, educational content, future offerings, and marketing materials. Message frequency varies (typically 1–4 messages per month). You may opt out at any time by replying "STOP" to SMS messages or using the unsubscribe link in emails. Your information is confidential and will never be sold or shared with third parties. Message and data rates may apply.
+                  </div>
+                </div>
+              </div>
+
+              <div class="actions actions-sticky">
+                <button class="btn primary" id="submit" type="submit" disabled>GET INSTANT ACCESS</button>
+              </div>
+
+              <div class="success" id="success" aria-live="polite">
+                <strong>Access requested.</strong>
+                <span>Preparing your next step.</span>
+              </div>
+            </form>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- Desktop exit-intent guard (does not run on mobile) -->
+    <div class="exitguard" id="exitGuard" role="dialog" aria-modal="true" aria-label="Exit warning" aria-hidden="true">
+      <div class="exitguard-card" role="document">
+        <div class="exitguard-emoji" aria-hidden="true">⏰</div>
+        <h2 class="exitguard-title">Wait do not leave this step unfinished</h2>
+        <p class="exitguard-copy">Founding Cohort rates increase after December 31st. Rates rise significantly soon.</p>
+        <p class="exitguard-copy">Access a deeper look at the vision and transformation your EchoClone™ unlocks on the next page.</p>
+
+        <div class="exitguard-actions">
+          <button class="btn primary" id="exitGuardContinue" type="button">Continue</button>
+        </div>
+
+        <p class="exitguard-foot">No credit card required on this step. This popup will not show again.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const NEXT_URL = "https://dixie-py.github.io/parallelyou-enroll/"; // Next step in funnel
+      const SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbwN9xzRhBYx8zY23OFj9h8m7Ymv6TsZ5tzM-D25Dy9pMdP43X0kahWkNkh82-Pqo-MAFg/exec"; // Paste your Google Apps Script Web App URL here (NOT the Google Sheet link).
+
+      const gate = document.getElementById('gate');
+      const scrim = document.getElementById('scrim');
+      const s1 = document.getElementById('s1');
+      const s2 = document.getElementById('s2');
+
+      const roleGroup = document.getElementById('roleGroup');
+      const cards = Array.from(roleGroup.querySelectorAll('.card'));
+      const continueBtn = document.getElementById('continue');
+
+      const form = document.getElementById('form');
+      const fullNameField = document.getElementById('fullNameField');
+      const emailField = document.getElementById('emailField');
+      const fullNameErr = document.getElementById('fullNameErr');
+      const emailErr = document.getElementById('emailErr');
+      const fullName = document.getElementById('fullName');
+      const email = document.getElementById('email');
+      const consent = document.getElementById('consent');
+      const submitBtn = document.getElementById('submit');
+      const success = document.getElementById('success');
+
+      const termsToggle = document.getElementById('termsToggle');
+      const termsPanel = document.getElementById('termsPanel');
+
+      // Desktop-only exit intent guard
+      const exitGuard = document.getElementById('exitGuard');
+      const exitGuardContinue = document.getElementById('exitGuardContinue');
+
+      let selectedRole = "";
+      let submitAttempted = false;
+
+      // Non-dismissable: block Esc for the main gate and the exit guard
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+        }
+      }, true);
+
+      // Desktop-only exit intent logic (never runs on mobile)
+      const desktopEligible = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth >= 768;
+      const EXIT_GUARD_KEY = 'py_exit_guard_seen_v1';
+      let exitGuardOpen = false;
+
+      function openExitGuard(){
+        if (!desktopEligible) return;
+        if (!exitGuard || !exitGuardContinue) return;
+        if (exitGuardOpen) return;
+        if (sessionStorage.getItem(EXIT_GUARD_KEY) === '1') return;
+        // Do not interrupt after submit processing begins
+        if (success.classList.contains('show') && submitBtn.textContent !== 'GET INSTANT ACCESS') return;
+
+        exitGuardOpen = true;
+        sessionStorage.setItem(EXIT_GUARD_KEY, '1');
+        exitGuard.classList.add('show');
+        exitGuard.setAttribute('aria-hidden', 'false');
+        setTimeout(() => exitGuardContinue.focus(), 40);
+      }
+
+      function closeExitGuard(){
+        if (!exitGuard) return;
+        exitGuardOpen = false;
+        exitGuard.classList.remove('show');
+        exitGuard.setAttribute('aria-hidden', 'true');
+        // Restore focus
+        if (s2.classList.contains('active')){
+          if (!submitBtn.disabled) submitBtn.focus(); else fullName.focus();
+        } else {
+          (continueBtn.disabled ? cards[0] : continueBtn).focus();
+        }
+      }
+
+      if (exitGuardContinue){
+        exitGuardContinue.addEventListener('click', closeExitGuard);
+      }
+
+      // Trigger when cursor leaves the top edge (classic exit intent)
+      document.addEventListener('mouseout', (e) => {
+        if (!desktopEligible) return;
+        if (exitGuardOpen) return;
+        if (!e) return;
+        const to = e.relatedTarget || e.toElement;
+        if (to) return;
+        if (e.clientY <= 0) openExitGuard();
+      });
+
+      // Optional tab close warning (browser-controlled UI). Only after engagement.
+      let hasInteracted = false;
+      document.addEventListener('pointerdown', () => { hasInteracted = true; }, { passive:true, once:true });
+      window.addEventListener('beforeunload', (e) => {
+        if (!desktopEligible) return;
+        if (!hasInteracted) return;
+        if (sessionStorage.getItem(EXIT_GUARD_KEY) === '1') return;
+        openExitGuard();
+        e.preventDefault();
+        e.returnValue = '';
+      });
+
+      // Focus trap
+      const focusableSel = [
+        'a[href]',
+        'button:not([disabled])',
+        'input:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(',');
+
+      function getFocusable(){
+        // If exit guard is open, trap inside it
+        const scope = (exitGuard && exitGuard.classList.contains('show')) ? exitGuard : gate;
+        return Array.from(scope.querySelectorAll(focusableSel)).filter(el => el.offsetParent !== null);
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const items = getFocusable();
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first){
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last){
+          e.preventDefault();
+          first.focus();
+        }
+      }, true);
+
+      // Step 1 selection
+      function setSelected(idx){
+        cards.forEach((btn, i) => {
+          const on = i === idx;
+          btn.classList.toggle('selected', on);
+          btn.setAttribute('aria-checked', on ? 'true' : 'false');
+          if (on) selectedRole = btn.dataset.value || "";
+        });
+        continueBtn.disabled = !selectedRole;
+      }
+
+      cards.forEach((btn, i) => {
+        btn.addEventListener('click', () => setSelected(i));
+        btn.addEventListener('keydown', (e) => {
+          const k = e.key;
+          if (k === 'Enter' || k === ' '){
+            e.preventDefault();
+            setSelected(i);
+            return;
+          }
+          if (k === 'ArrowDown' || k === 'ArrowRight'){
+            e.preventDefault();
+            cards[(i + 1) % cards.length].focus();
+            return;
+          }
+          if (k === 'ArrowUp' || k === 'ArrowLeft'){
+            e.preventDefault();
+            cards[(i - 1 + cards.length) % cards.length].focus();
+          }
+        });
+      });
+
+      function goToStep2(){
+        s1.classList.remove('active');
+        s1.setAttribute('aria-hidden', 'true');
+        s2.classList.add('active');
+        s2.removeAttribute('aria-hidden');
+        setTimeout(() => fullName.focus(), 60);
+      }
+
+      function goToStep1(){
+        s2.classList.remove('active');
+        s2.setAttribute('aria-hidden', 'true');
+        s1.classList.add('active');
+        s1.removeAttribute('aria-hidden');
+        setTimeout(() => {
+          const idx = Math.max(0, cards.findIndex(b => (b.dataset.value || '') === selectedRole));
+          (cards[idx] || cards[0]).focus();
+        }, 60);
+      }
+
+      function showFieldError(fieldEl, errEl){
+        fieldEl.classList.add('has-error');
+        errEl.classList.add('show');
+      }
+      function hideFieldError(fieldEl, errEl){
+        fieldEl.classList.remove('has-error');
+        errEl.classList.remove('show');
+      }
+
+      continueBtn.addEventListener('click', () => {
+        if (!selectedRole) return;
+        goToStep2();
+      });
+
+      // Terms dropdown stays open until toggled
+      let suppressNextBlur = false;
+
+      // Prevent blur-validation when user clicks Terms (first click should open, not scold)
+      termsToggle.addEventListener('pointerdown', () => { suppressNextBlur = true; }, { passive:true });
+
+      // Terms dropdown stays open until toggled
+      termsToggle.addEventListener('click', () => {
+        const open = termsPanel.classList.toggle('open');
+        termsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open){
+          // Ensure it opens predictably at the top
+          termsPanel.scrollTop = 0;
+        }
+      });
+
+      function isValidEmail(v){
+        const s = String(v || '').trim();
+        const at = s.indexOf('@');
+        if (at < 1) return false;
+        const dot = s.lastIndexOf('.');
+        if (dot <= at + 1) return false;
+        if (dot >= s.length - 1) return false;
+        return true;
+      }
+
+      function validateFields(show){
+        const nameOk = String(fullName.value || '').trim().length > 1;
+        const emailOk = isValidEmail(email.value);
+
+        if (show){
+          if (!nameOk) showFieldError(fullNameField, fullNameErr); else hideFieldError(fullNameField, fullNameErr);
+          if (!emailOk) showFieldError(emailField, emailErr); else hideFieldError(emailField, emailErr);
+          fullName.setAttribute('aria-invalid', nameOk ? 'false' : 'true');
+          email.setAttribute('aria-invalid', emailOk ? 'false' : 'true');
+        }
+        return { nameOk, emailOk };
+      }
+
+      function sync(){
+        const { nameOk, emailOk } = validateFields(submitAttempted);
+        const consentOk = !!consent.checked;
+        submitBtn.disabled = !(nameOk && emailOk && consentOk);
+      }
+
+      function syncOnInput(){
+        if (submitAttempted) validateFields(true);
+        const nameOk = String(fullName.value || '').trim().length > 1;
+        const emailOk = isValidEmail(email.value);
+        const consentOk = !!consent.checked;
+        submitBtn.disabled = !(nameOk && emailOk && consentOk);
+      }
+
+      
+      fullName.addEventListener('input', syncOnInput);
+      email.addEventListener('input', syncOnInput);
+      fullName.addEventListener('blur', () => {
+        if (suppressNextBlur){ suppressNextBlur = false; return; }
+        submitAttempted = true;
+        validateFields(true);
+        sync();
+      });
+      email.addEventListener('blur', () => {
+        if (suppressNextBlur){ suppressNextBlur = false; return; }
+        submitAttempted = true;
+        validateFields(true);
+        sync();
+      });
+      consent.addEventListener('change', () => {
+        submitAttempted = true;
+        sync();
+        // If they just agreed, collapse Terms automatically (keeps momentum)
+        if (consent.checked && termsPanel.classList.contains('open')){
+          termsPanel.classList.remove('open');
+          termsToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      async function sendPayload(payload){
+        // IMPORTANT: A Google Sheet link cannot receive data.
+        // You must use a Google Apps Script Web App URL (Deploy -> Web app) that writes into your sheet.
+        // To avoid CORS/preflight issues on GitHub Pages, we send as text/plain with no-cors.
+        if (!SUBMIT_ENDPOINT || !/^https:\/\//i.test(SUBMIT_ENDPOINT)) return;
+
+        const body = JSON.stringify(payload);
+        await fetch(SUBMIT_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body
+        });
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitAttempted = true;
+        sync();
+        if (submitBtn.disabled){
+          validateFields(true);
+          return;
+        }
+
+        const payload = {
+          role: selectedRole,
+          fullName: String(fullName.value || '').trim(),
+          email: String(email.value || '').trim(),
+          consent: true,
+          page: window.location.href,
+          ts: new Date().toISOString()
+        };
+
+        console.log('[ParallelYou] Gate submit', payload);
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'PROCESSING...';
+        success.classList.add('show');
+        try{
+          await sendPayload(payload);
+        } catch (err){
+          console.warn('[ParallelYou] Submit error', err);
+        }
+
+        // Redirect is the primary conversion action. We redirect even if logging fails.
+        if (NEXT_URL){
+          setTimeout(() => { window.location.assign(NEXT_URL); }, 520);
+          return;
+        } else {
+          submitBtn.textContent = 'GET INSTANT ACCESS';
+          submitBtn.disabled = false;
+        }
+      });
+      // Prevent background scroll gestures on the backdrop only.
+      // Do NOT block scrolling inside the modal or terms panel.
+      const block = (e) => { e.preventDefault(); };
+      scrim.addEventListener('wheel', block, { passive:false });
+      scrim.addEventListener('touchmove', block, { passive:false });
+      
+      // Initial focus
+      setTimeout(() => cards[0].focus(), 60);
+
+      // Ensure the Terms panel can be scrolled with wheel/touch when open
+      termsPanel.addEventListener('wheel', (e) => {
+        const atTop = termsPanel.scrollTop <= 0;
+        const atBottom = Math.ceil(termsPanel.scrollTop + termsPanel.clientHeight) >= termsPanel.scrollHeight;
+        if (!(atTop && e.deltaY < 0) && !(atBottom && e.deltaY > 0)){
+          e.stopPropagation();
+        }
+      }, { passive:true });
+      termsPanel.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+      }, { passive:true });
+      sync();
+    })();
+  </script>
+</body>
+</html>
